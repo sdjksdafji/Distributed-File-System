@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+
+
+	<p:selectOneListbox id="scroll"
+		value="#{autoCompleteBean.selectedPlayer1}" converter="player" var="p"
+		style="height:200px">
+		<f:selectItems value="#{autoCompleteBean.players}" var="player"
+			itemLabel="#{player.name}" itemValue="#{player}" />
+
+		<p:column>
+			<p:graphicImage value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png" width="40" />
+		</p:column>
+
+		<p:column>
+                #{p.name} - #{p.number}
+            </p:column>
+	</p:selectOneListbox>
+
+	</h:panelGrid>
+
+</h:body>
+</html>
