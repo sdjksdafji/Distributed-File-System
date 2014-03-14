@@ -13,23 +13,45 @@
 <h:body>
 
 
+	<p:panel style="width:850px">
+		<f:facet name="header">
+        File Browser
+    </f:facet>
+		<p:selectOneListbox id="fileBrowser"
+			value="#{fileBrowserBean.selectedItem}" converter="file" var="f"
+			style="height:400px;width:800px">
+			<f:selectItems value="#{fileBrowserBean.files}" var="file"
+				itemLabel="#{file.name}" itemValue="#{file}" />
 
-	<p:selectOneListbox id="scroll"
-		value="#{autoCompleteBean.selectedPlayer1}" converter="player" var="p"
-		style="height:200px">
-		<f:selectItems value="#{autoCompleteBean.players}" var="player"
-			itemLabel="#{player.name}" itemValue="#{player}" />
+			<p:column>
+				<p:graphicImage
+					value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png"
+					width="40" />
+			</p:column>
 
-		<p:column>
-			<p:graphicImage value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png" width="40" />
-		</p:column>
+			<p:column>
+				<h:outputText value="#{f.name} " />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{f.type} " />
+			</p:column>
+		</p:selectOneListbox>
 
-		<p:column>
-                #{p.name} - #{p.number}
-            </p:column>
-	</p:selectOneListbox>
+		<f:facet name="footer">
+			<p:commandButton type="button" value="Share" icon="ui-icon-check"
+				style="margin:0" />
+			<p:commandButton type="button" value="Download" icon="ui-icon-check"
+				style="margin:30" />
+			<p:commandButton type="button" value="Delete" icon="ui-icon-check"
+				style="margin:30" />
+			<p:commandButton type="button" value="Rename" icon="ui-icon-check"
+				style="margin:30" />
 
-	</h:panelGrid>
+		</f:facet>
+	</p:panel>
+
+
+
 
 </h:body>
 </html>
