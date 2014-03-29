@@ -3,12 +3,14 @@ package cs5412.project.distributed_file_system.dao.jdbc;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
 
+@Named
 public class FileJdbcDAO implements FileDAO {
 	
 	@Inject
