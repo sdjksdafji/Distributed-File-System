@@ -1,11 +1,18 @@
-package cs5412.project.distributed_file_system.dao.djbc;
+package cs5412.project.distributed_file_system.dao.jdbc;
 
 import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
 
 public class FileJdbcDAO implements FileDAO {
+	
+	@Inject
+	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public int createFile(File file) {
