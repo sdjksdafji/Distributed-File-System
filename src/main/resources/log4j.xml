@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.cloud.webfile">
+	<logger name="cs5412.project.distributed_file_system">
 		<level value="info" />
 	</logger>
 	
