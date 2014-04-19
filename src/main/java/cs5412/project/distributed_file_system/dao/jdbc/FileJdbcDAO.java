@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -68,7 +67,7 @@ public class FileJdbcDAO implements FileDAO {
 				public PreparedStatement createPreparedStatement(
 						Connection connection) throws SQLException {
 					PreparedStatement ps = connection.prepareStatement(
-							INSERT_SQL, new String[] { "id" });
+							INSERT_SQL, new String[] { "fid" });
 					ps.setString(1, _file.getName());
 					ps.setString(2, _file.getLocation());
 					ps.setString(3, _file.getParentDir());
