@@ -82,9 +82,13 @@ public class FileJdbcDAOTest {
 		File file = new File("testdir", true);
 		file.setuId(1);
 		tmpfid = fileDao.createFile(file);
+		System.out.println("created fid " + tmpfid);
+		file.setfId(tmpfid);
 		boolean isSuccess = fileDao.deleteFile(file);
 		if (!isSuccess) {
 			fail("delete fail");
+		}else{
+			System.out.println("removed fid " + tmpfid);
 		}
 	}
 	

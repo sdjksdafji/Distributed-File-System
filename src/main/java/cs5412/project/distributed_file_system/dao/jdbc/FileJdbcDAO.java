@@ -120,6 +120,9 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public boolean deleteFile(File file) {
+		if(file.getfId()<=0){
+			return false;
+		}
 		try {
 			this.jdbcTemplate.update("delete from File where fid = ?",
 					new Object[] { file.getfId() });
