@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -48,18 +49,24 @@ public class FileJdbcDAO implements FileDAO {
 						new Object[] { file.getName(), file.getLocation(),
 								file.getParentDir(), file.getHash(),
 								file.getVersion(), file.getuId(), file.isDir() });
-		return 0;
+		int ret = this.jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
+				Integer.class);
+		return ret;
 	}
 
 	@Override
 	public boolean updateFile(File file) {
-		this.jdbcTemplate
-				.update("update File set fname = ?, location=?, directory=?, hash=?, version=?, uid=?, isdir=? where fid = ?",
-						new Object[] { file.getName(), file.getLocation(),
-								file.getParentDir(), file.getHash(),
-								file.getVersion(), file.getuId(), file.isDir(),
-								file.getfId() });
-		return false;
+		try {
+			this.jdbcTemplate
+					.update("update File set fname = ?, location=?, directory=?, hash=?, version=?, uid=?, isdir=? where fid = ?",
+							new Object[] { file.getName(), file.getLocation(),
+									file.getParentDir(), file.getHash(),
+									file.getVersion(), file.getuId(),
+									file.isDir(), file.getfId() });
+		} catch (DataAccessException e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class FileJdbcDAO implements FileDAO {
 	}
 
 	@Override
-	public List<File> getFileByParentFir(File parentDir) {
+	public List<File> getFileByParentDir(File parentDir) {
 		List<File> files = this.jdbcTemplate
 				.query("select fid, fname, location, directory, hash, version, uid, isdir from File where directory = ?",
 						new Object[] { parentDir.getName() }, new FileMapper());
@@ -81,9 +88,13 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public boolean deleteFile(File file) {
-		this.jdbcTemplate.update("delete from File where fid = ?",
-				new Object[] { file.getfId() });
-		return false;
+		try {
+			this.jdbcTemplate.update("delete from File where fid = ?",
+					new Object[] { file.getfId() });
+		} catch (DataAccessException e) {
+			return false;
+		}
+		return true;
 	}
 
 }

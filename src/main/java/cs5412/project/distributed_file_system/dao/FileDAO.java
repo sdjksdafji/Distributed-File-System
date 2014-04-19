@@ -8,6 +8,6 @@ public interface FileDAO {
 	public int createFile(File file);
 	public boolean updateFile(File file);
 	public File getFileByFid(int fid);
-	public List<File> getFileByParentFir(File parentDir);
+	public List<File> getFileByParentDir(File parentDir);
 	public boolean deleteFile(File file);
 }
