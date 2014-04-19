@@ -97,4 +97,10 @@ public class FileJdbcDAO implements FileDAO {
 		return true;
 	}
 
+	@Override
+	public File getRootDirForUser(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
