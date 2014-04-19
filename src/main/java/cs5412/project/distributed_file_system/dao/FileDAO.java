@@ -10,4 +10,5 @@ public interface FileDAO {
 	public File getFileByFid(int fid);
 	public List<File> getFileByParentDir(File parentDir);
 	public boolean deleteFile(File file);
+	public File getRootDirForUser(int userId);
 }
