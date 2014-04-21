@@ -11,4 +11,5 @@ public interface FileDAO {
 	public List<File> getFileByParentDir(File parentDir);
 	public boolean deleteFile(File file);
 	public File getRootDirForUser(int userId);
+	public boolean createHistory(int uid, int fidold, int fidnew, int type);
 }

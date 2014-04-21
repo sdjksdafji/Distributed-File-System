@@ -27,6 +27,14 @@ public class FileJdbcDAOTest {
 		System.out.println("Hello Test");
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testCreateHistory() {
+		boolean isSuccess = fileDao.createHistory(1,0,0,4);
+		if (!isSuccess) {
+			fail("create history fail");
+		}
+	}
 
 	@Test
 	public void testCreateFile() {
