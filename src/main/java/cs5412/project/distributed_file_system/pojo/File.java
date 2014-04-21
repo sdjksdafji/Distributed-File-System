@@ -3,12 +3,13 @@ package cs5412.project.distributed_file_system.pojo;
 public class File {
 	private int fid;
 	private String name;
-	private boolean isDir;
 	private String location;
-	private String parentDir;
+	private int parentDir;
 	private String hash;
-	private int version;
+	private int referenceCount;
 	private int uid;
+	private boolean isDir;
+	private boolean hidden;
 
 	public File() {
 		super();
@@ -28,12 +29,12 @@ public class File {
 
 	}
 
-	public int getfId() {
+	public int getFid() {
 		return fid;
 	}
 
-	public void setfId(int fId) {
-		this.fid = fId;
+	public void setFid(int fid) {
+		this.fid = fid;
 	}
 
 	public String getName() {
@@ -60,13 +61,6 @@ public class File {
 		this.location = location;
 	}
 
-	public String getParentDir() {
-		return parentDir;
-	}
-
-	public void setParentDir(String parentDir) {
-		this.parentDir = parentDir;
-	}
 
 	public String getHash() {
 		return hash;
@@ -76,19 +70,35 @@ public class File {
 		this.hash = hash;
 	}
 
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
-	public int getuId() {
+	public int getUid() {
 		return uid;
 	}
 
-	public void setuId(int uId) {
+	public void setUid(int uId) {
 		this.uid = uId;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public int getParentDir() {
+		return parentDir;
+	}
+
+	public void setParentDir(int parentDir) {
+		this.parentDir = parentDir;
+	}
+
+	public int getReferenceCount() {
+		return referenceCount;
+	}
+
+	public void setReferenceCount(int referenceCount) {
+		this.referenceCount = referenceCount;
 	}
 }
