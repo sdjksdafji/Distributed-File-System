@@ -1,6 +1,7 @@
 package cs5412.project.distributed_file_system.jsfbean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
@@ -21,14 +22,14 @@ import cs5412.project.distributed_file_system.service.UserAccountService;
 @Scope("request")
 @URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.url}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
 public class FileBrowserBean {
-	private ArrayList<File> files;
+	private List<File> files;
 	private File selectedItem;
 	private String url;
 	private int userId;
 
 	@Inject
 	private UserAccountService userAccountService;
-	
+
 	@Inject
 	private FileDAO fileDao;
 
@@ -52,7 +53,8 @@ public class FileBrowserBean {
 
 	private void readFileList() {
 		if (this.userId >= 0) {
-			this.fileDao
+			File rootFolder = this.fileDao.getRootDirForUser(userId);
+			this.files = this.fileDao.getFileByParentDir(rootFolder);
 		} else {
 			this.files = new ArrayList<File>();
 
