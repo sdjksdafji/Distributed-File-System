@@ -5,7 +5,6 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
-	private int currentVersion;
 
 	public int getUid() {
 		return uid;
@@ -39,11 +38,4 @@ public class User {
 		this.email = email;
 	}
 
-	public int getCurrentVersion() {
-		return currentVersion;
-	}
-
-	public void setCurrentVersion(int currentVersion) {
-		this.currentVersion = currentVersion;
-	}
 }
