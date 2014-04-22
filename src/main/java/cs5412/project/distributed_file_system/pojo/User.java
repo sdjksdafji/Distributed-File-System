@@ -5,6 +5,7 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
+	private int rootfid;
 
 	public int getUid() {
 		return uid;
@@ -36,6 +37,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getRootfid() {
+		return rootfid;
+	}
+
+	public void setRootfid(int rootfid) {
+		this.rootfid = rootfid;
 	}
 
 }
