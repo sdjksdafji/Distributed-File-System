@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
+import cs5412.project.distributed_file_system.pojo.User;
 
 @Named
 public class FileJdbcDAO implements FileDAO {
@@ -42,8 +44,20 @@ public class FileJdbcDAO implements FileDAO {
 			file.setReferenceCount(rs.getInt("hiscount"));
 			file.setUid(rs.getInt("uid"));
 			file.setDir(rs.getBoolean("isDir"));
-			file.setHidden(rs.getBoolean("isHidder"));
+			file.setHidden(rs.getBoolean("isHidden"));
 			return file;
+		}
+	}
+
+	private static final class UserMapper implements RowMapper<User> {
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			User user = new User();
+			user.setUid(rs.getInt("uid"));
+			user.setUsername(rs.getString("uname"));
+			user.setPassword(rs.getString("password"));
+			user.setEmail(rs.getString("email"));
+			user.setRootfid(rs.getInt("rootfid"));
+			return user;
 		}
 	}
 
@@ -108,7 +122,11 @@ public class FileJdbcDAO implements FileDAO {
 							INSERT_SQL, new String[] { "fid" });
 					ps.setString(1, _file.getName());
 					ps.setString(2, _file.getLocation());
-					ps.setInt(3, _file.getParentDir());
+					if (_file.getParentDir() <= 0) {
+						ps.setNull(3, Types.NULL);
+					} else {
+						ps.setInt(3, _file.getParentDir());
+					}
 					ps.setString(4, _file.getHash());
 					ps.setInt(5, _file.getReferenceCount());
 					ps.setInt(6, _file.getUid());
@@ -128,14 +146,14 @@ public class FileJdbcDAO implements FileDAO {
 	@Override
 	public boolean updateFile(File file) {
 		try {
-			//set old file invisible
-			this.jdbcTemplate.update("update File set isHidden, where fid = ?",
+			// set old file invisible
+			this.jdbcTemplate.update("update File set isHidden = ? where fid = ?",
 					new Object[] { true, file.getFid() });
-			//create new file
+			// create new file
 			int fid = createFileOnly(file);
-			//write transaction to history
+			// write transaction to history
 			createHistory(file.getUid(), file.getFid(), fid, 3);
-			//set new fid to file
+			// set new fid to file
 			file.setFid(fid);
 		} catch (DataAccessException e) {
 			return false;
@@ -145,6 +163,7 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public File getFileByFid(int fid) {
+		//will return hidden files
 		File ret = (File) this.jdbcTemplate
 				.queryForObject(
 						"select fid, fname, location, directory, hash, hiscount, uid, isdir, ishidden from File where fid = ?",
@@ -156,7 +175,7 @@ public class FileJdbcDAO implements FileDAO {
 	public List<File> getFileByParentDir(File parentDir) {
 		List<File> files = this.jdbcTemplate
 				.query("select fid, fname, location, directory, hash, hiscount, uid, isdir, ishidden from File where directory = ?",
-						new Object[] { parentDir.getFid()}, new FileMapper());
+						new Object[] { parentDir.getFid() }, new FileMapper());
 		return files;
 	}
 
@@ -166,7 +185,7 @@ public class FileJdbcDAO implements FileDAO {
 			return false;
 		}
 		try {
-			this.jdbcTemplate.update("update File set isHidden, where fid = ?",
+			this.jdbcTemplate.update("update File set isHidden = ? where fid = ?",
 					new Object[] { true, file.getFid() });
 			createHistory(file.getUid(), file.getFid(), 0, 2);
 		} catch (DataAccessException e) {
@@ -177,8 +196,12 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public File getRootDirForUser(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User u = (User) this.jdbcTemplate
+				.queryForObject(
+						"select uid, uname, password, email, rootfid from User where uid = ?",
+						new Object[] { userId }, new UserMapper());
+		int rootfid = u.getRootfid();
+		return getFileByFid(rootfid);
 	}
 
 }

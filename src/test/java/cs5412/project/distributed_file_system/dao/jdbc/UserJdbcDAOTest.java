@@ -36,7 +36,6 @@ public class UserJdbcDAOTest {
 		u.setUsername("testuser");
 		u.setEmail("test@test.com");
 		u.setPassword("asdf");
-		u.setCurrentVersion(0);
 		int uid = userDao.createUser(u);
 		if (uid <= 0) {
 			fail("create user fail");
@@ -51,36 +50,35 @@ public class UserJdbcDAOTest {
 		u.setUsername("testuserUpdated");
 		u.setEmail("test@test.com");
 		u.setPassword("asdf");
-		u.setCurrentVersion(0);
-		u.setUid(3);
+		u.setRootfid(1);
+		u.setUid(1);
 		boolean isSuccess = userDao.updateUser(u);
 		if (!isSuccess) {
 			fail("update user fail");
 		}
 	}
-
-	@Test
-	public void testDeleteUser() {
-		User u = new User();
-		u.setUsername("testuser");
-		u.setEmail("test@test.com");
-		u.setPassword("asdf");
-		u.setCurrentVersion(0);
-		int uid = userDao.createUser(u);
-		if (uid <= 0) {
-			fail("create user fail");
-		} else {
-			System.out.println("created user uid=" + uid);
-		}
-
-		u.setUid(uid);
-
-		boolean isSuccess = userDao.deleteUser(u);
-		if (!isSuccess) {
-			fail("remove user fail");
-		} else {
-			System.out.println("removed user uid=" + uid);
-		}
-	}
+//
+//	@Test
+//	public void testDeleteUser() {
+//		User u = new User();
+//		u.setUsername("testuserForDelete");
+//		u.setEmail("test@test.com");
+//		u.setPassword("asdf");
+//		int uid = userDao.createUser(u);
+//		if (uid <= 0) {
+//			fail("create user fail");
+//		} else {
+//			System.out.println("created user uid=" + uid);
+//		}
+//
+//		u.setUid(uid);
+//
+//		boolean isSuccess = userDao.deleteUser(u);
+//		if (!isSuccess) {
+//			fail("remove user fail");
+//		} else {
+//			System.out.println("removed user uid=" + uid);
+//		}
+//	}
 
 }

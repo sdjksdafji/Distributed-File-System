@@ -22,24 +22,19 @@ public class FileJdbcDAOTest {
 	private FileDAO fileDao;
 	private int tmpfid;
 
-	@Test
-	public void test() {
-		System.out.println("Hello Test");
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testCreateHistory() {
-		boolean isSuccess = fileDao.createHistory(1,0,0,4);
-		if (!isSuccess) {
-			fail("create history fail");
-		}
-	}
+//	@Test
+//	public void testCreateHistory() {
+//		boolean isSuccess = fileDao.createHistory(1,0,0,4);
+//		if (!isSuccess) {
+//			fail("create history fail");
+//		}
+//	}
 
 	@Test
 	public void testCreateFile() {
 		File file = new File("testdir", true);
-		file.setuId(1);
+		file.setUid(1);
+		file.setParentDir(1);
 		tmpfid = fileDao.createFile(file);
 		if (tmpfid <= 0) {
 			fail("create fail");
@@ -50,10 +45,12 @@ public class FileJdbcDAOTest {
 
 	@Test
 	public void testUpdateFile() {
-		tmpfid = 1;
+		tmpfid = 2;
 		File file = new File("testdir_Updated", true);
-		file.setuId(1);
-		file.setfId(tmpfid);
+		file.setUid(1);
+		file.setFid(tmpfid);
+		file.setHidden(false);
+		file.setParentDir(1);
 		boolean isSuccess = fileDao.updateFile(file);
 		if (!isSuccess) {
 			fail("update fail");
@@ -75,6 +72,7 @@ public class FileJdbcDAOTest {
 	@Test
 	public void testGetFileByParentDir() {
 		File dir = new File("testdir", true);
+		dir.setFid(1);
 		List<File> files = fileDao.getFileByParentDir(dir);
 		if (files == null || files.size() == 0) {
 			fail("update fail");
@@ -88,10 +86,11 @@ public class FileJdbcDAOTest {
 	@Test
 	public void testDeleteFile() {
 		File file = new File("testdir", true);
-		file.setuId(1);
+		file.setUid(1);
+		file.setParentDir(1);
 		tmpfid = fileDao.createFile(file);
 		System.out.println("created fid " + tmpfid);
-		file.setfId(tmpfid);
+		file.setFid(tmpfid);
 		boolean isSuccess = fileDao.deleteFile(file);
 		if (!isSuccess) {
 			fail("delete fail");
