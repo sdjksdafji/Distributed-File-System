@@ -54,7 +54,7 @@ public class FileJdbcDAO implements FileDAO {
 			User user = new User();
 			user.setUid(rs.getInt("uid"));
 			user.setUsername(rs.getString("uname"));
-			user.setPassword(rs.getString("password"));
+			user.setHashedPassword(rs.getString("password"));
 			user.setEmail(rs.getString("email"));
 			user.setRootfid(rs.getInt("rootfid"));
 			return user;

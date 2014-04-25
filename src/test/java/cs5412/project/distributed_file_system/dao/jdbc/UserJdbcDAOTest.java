@@ -35,7 +35,7 @@ public class UserJdbcDAOTest {
 		User u = new User();
 		u.setUsername("testuser");
 		u.setEmail("test@test.com");
-		u.setPassword("asdf");
+		u.setHashedPassword("asdf");
 		int uid = userDao.createUser(u);
 		if (uid <= 0) {
 			fail("create user fail");
@@ -49,7 +49,7 @@ public class UserJdbcDAOTest {
 		User u = new User();
 		u.setUsername("testuserUpdated");
 		u.setEmail("test@test.com");
-		u.setPassword("asdf");
+		u.setHashedPassword("asdf");
 		u.setRootfid(1);
 		u.setUid(1);
 		boolean isSuccess = userDao.updateUser(u);

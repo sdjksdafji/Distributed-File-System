@@ -37,7 +37,7 @@ public class UserJdbcDAO implements UserDAO {
 			User user = new User();
 			user.setUid(rs.getInt("uid"));
 			user.setUsername(rs.getString("uname"));
-			user.setPassword(rs.getString("password"));
+			user.setHashedPassword(rs.getString("password"));
 			user.setEmail(rs.getString("email"));
 			user.setRootfid(rs.getInt("rootfid"));
 			return user;
@@ -52,7 +52,7 @@ public class UserJdbcDAO implements UserDAO {
 						new Object[] { uid }, new UserMapper());
 		return ret;
 	}
-	
+
 	public boolean createHistory(int uid, int fidold, int fidnew, int type) {
 		try {
 			// create
@@ -149,7 +149,7 @@ public class UserJdbcDAO implements UserDAO {
 					PreparedStatement ps = connection.prepareStatement(
 							INSERT_SQL, new String[] { "uid" });
 					ps.setString(1, _user.getUsername());
-					ps.setString(2, _user.getPassword());
+					ps.setString(2, _user.getHashedPassword());
 					ps.setString(3, _user.getEmail());
 					return ps;
 				}
@@ -164,12 +164,12 @@ public class UserJdbcDAO implements UserDAO {
 	@Override
 	public boolean updateUser(User user) {
 		try {
-			//System.out.println("update user uid = " + user.getUid()
-			//		+ " rootfid = " + user.getRootfid());
+			// System.out.println("update user uid = " + user.getUid()
+			// + " rootfid = " + user.getRootfid());
 			this.jdbcTemplate
 					.update("update User set uname = ?, password=?, email=?, rootfid=? where uid = ?",
 							new Object[] { user.getUsername(),
-									user.getPassword(), user.getEmail(),
+									user.getHashedPassword(), user.getEmail(),
 									user.getRootfid(), user.getUid() });
 		} catch (DataAccessException e) {
 			return false;
@@ -183,17 +183,23 @@ public class UserJdbcDAO implements UserDAO {
 			return false;
 		}
 		try {
-			//TODO:
-			//delete all files
-			//delete all histories
-			//delete user
+			// TODO:
+			// delete all files
+			// delete all histories
+			// delete user
 			this.jdbcTemplate.update("delete from User where uid = ?",
 					new Object[] { user.getUid() });
-			
+
 		} catch (DataAccessException e) {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean userLogin(String username, String hashPassword) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

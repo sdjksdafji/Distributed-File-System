@@ -23,11 +23,15 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
+	public String getHashedPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setHashedPassword(String password) {
+		this.password = password;
+	}
+
+	public void setUnhashedPassword(String password) {
 		this.password = password;
 	}
 

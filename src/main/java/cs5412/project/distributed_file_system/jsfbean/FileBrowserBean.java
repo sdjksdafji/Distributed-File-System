@@ -66,7 +66,7 @@ public class FileBrowserBean {
 		}
 	}
 
-	public ArrayList<File> getFiles() {
+	public List<File> getFiles() {
 		return files;
 	}
 
