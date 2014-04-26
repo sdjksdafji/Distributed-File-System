@@ -57,6 +57,18 @@ public class UserJdbcDAOTest {
 			fail("update user fail");
 		}
 	}
+	
+	@Test
+	public void testUserLogin() {
+		String username = "zf";
+		String pw = "111";
+		boolean isSuccess = userDao.userLogin(username, pw);
+		if (!isSuccess) {
+			fail("login user fail");
+		}
+	}
+	
+	
 //
 //	@Test
 //	public void testDeleteUser() {

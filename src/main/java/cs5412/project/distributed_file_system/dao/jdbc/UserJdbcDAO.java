@@ -198,8 +198,15 @@ public class UserJdbcDAO implements UserDAO {
 
 	@Override
 	public boolean userLogin(String username, String hashPassword) {
-		// TODO Auto-generated method stub
-		return false;
+		User u = (User) this.jdbcTemplate
+				.queryForObject(
+						"select uid, uname, password, email, rootfid from User where uname = ?",
+						new Object[] { username }, new UserMapper());
+		if (u.getHashedPassword().equals(hashPassword)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
