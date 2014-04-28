@@ -108,4 +108,12 @@ public class File {
 				+ ", referenceCount=" + referenceCount + ", uid=" + uid
 				+ ", isDir=" + isDir + ", hidden=" + hidden + "]";
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		File otherFile = (File) other;
+		return this.fid == otherFile.getFid();
+	}
 }

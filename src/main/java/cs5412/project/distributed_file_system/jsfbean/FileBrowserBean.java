@@ -27,7 +27,7 @@ import cs5412.project.distributed_file_system.service.UserAccountService;
 @URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.dirPath}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
 public class FileBrowserBean {
 	private List<File> files;
-	private File selectedItem;
+	public File selectedItem;
 	private String dirPath;
 	private int userId;
 
@@ -37,21 +37,23 @@ public class FileBrowserBean {
 	@Inject
 	private FileDAO fileDao;
 
-	//@URLAction
+	// @URLAction
 	@PostConstruct
 	public void init() {
-		System.out.println("init function called");
+		System.out.println("init function called2");
 		checkLoginCookie();
 		readFileList();
 
 	}
 
-	public void openDir(ActionEvent event) {
+	public String openDir() {
+		System.out.println("aaaaaaaaaaaaaaaaaaaa");
 		if (this.selectedItem != null) {
-			System.out.println(this.selectedItem.toString());
+			System.out.println("selected:" + this.selectedItem);
 		} else {
 			System.out.println("selected nothing");
 		}
+		return null;
 	}
 
 	public String getViewPath() {
@@ -67,12 +69,12 @@ public class FileBrowserBean {
 
 	private void readFileList() {
 		if (this.userId >= 0) {
-//			if (this.dirPath.equals("home")) {
-				File rootFolder = this.fileDao.getRootDirForUser(userId);
-				this.files = this.fileDao.getFileByParentDir(rootFolder);
-//			} else {
-//				this.files = new ArrayList<File>();
-//			}
+			// if (this.dirPath.equals("home")) {
+			File rootFolder = this.fileDao.getRootDirForUser(userId);
+			this.files = this.fileDao.getFileByParentDir(rootFolder);
+			// } else {
+			// this.files = new ArrayList<File>();
+			// }
 		} else {
 			this.files = new ArrayList<File>();
 		}
@@ -86,20 +88,20 @@ public class FileBrowserBean {
 		this.files = files;
 	}
 
-	public File getSelectedItem() {
-		return selectedItem;
-	}
-
-	public void setSelectedItem(File selectedItem) {System.out.println("set called");
-		this.selectedItem = selectedItem;
-	}
-
 	public String getDirPath() {
 		return dirPath;
 	}
 
 	public void setDirPath(String dirPath) {
 		this.dirPath = dirPath;
+	}
+
+	public File getSelectedItem() {
+		return selectedItem;
+	}
+
+	public void setSelectedItem(File selectedItem) {
+		this.selectedItem = selectedItem;
 	}
 
 }

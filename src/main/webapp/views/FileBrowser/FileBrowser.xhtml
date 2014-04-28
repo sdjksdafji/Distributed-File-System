@@ -38,10 +38,10 @@
 			</p:selectOneListbox>
 
 			<f:facet name="footer">
-				<p:commandButton value="open1" update="display" oncomplete="PF('dlg').show()" />
-				<p:commandButton value="open" update="fileBrowser,display"
-					actionListener="#{fileBrowserBean.openDir}" icon="ui-icon-check"
-					style="margin:0" oncomplete="PF('dlg').show()" />
+				<!-- 				<p:commandButton value="open1" update="display" oncomplete="PF('dlg').show()" /> -->
+				<p:commandButton value="open" update="fileBrowser" ajax="true"
+					action="#{fileBrowserBean.openDir}" icon="ui-icon-check"
+					style="margin:0" />
 				<p:commandButton value="Share" icon="ui-icon-check"
 					style="margin:30" />
 				<p:commandButton value="Download" icon="ui-icon-check"
@@ -54,15 +54,15 @@
 			</f:facet>
 		</p:panel>
 
-		<p:dialog header="Selected Values" modal="true" showEffect="fade"
-			hideEffect="fade" widgetVar="dlg">
-			<h:panelGrid columns="2" id="display">
+		<!-- 		<p:dialog header="Selected Values" modal="true" showEffect="fade" -->
+		<!-- 			hideEffect="fade" widgetVar="dlg"> -->
+		<!-- 			<h:panelGrid columns="2" id="display"> -->
 
-				<h:outputText value="Value:" />
-				<h:outputText id="selectedFile"
-					value="#{fileBrowserBean.selectedItem}" />
-			</h:panelGrid>
-		</p:dialog>
+		<!-- 				<h:outputText value="Value:" /> -->
+		<!-- 				<h:outputText id="selectedFile" -->
+		<!-- 					value="#{fileBrowserBean.selectedItem}" /> -->
+		<!-- 			</h:panelGrid> -->
+		<!-- 		</p:dialog> -->
 
 	</h:form>
 
