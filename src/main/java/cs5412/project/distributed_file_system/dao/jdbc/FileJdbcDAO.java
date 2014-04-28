@@ -23,7 +23,7 @@ import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
 import cs5412.project.distributed_file_system.pojo.User;
 
-@Named
+//@Named
 public class FileJdbcDAO implements FileDAO {
 
 	@Inject

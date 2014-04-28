@@ -61,7 +61,6 @@ public class File {
 		this.location = location;
 	}
 
-
 	public String getHash() {
 		return hash;
 	}
@@ -100,5 +99,13 @@ public class File {
 
 	public void setReferenceCount(int referenceCount) {
 		this.referenceCount = referenceCount;
+	}
+
+	@Override
+	public String toString() {
+		return "File [fid=" + fid + ", name=" + name + ", location=" + location
+				+ ", parentDir=" + parentDir + ", hash=" + hash
+				+ ", referenceCount=" + referenceCount + ", uid=" + uid
+				+ ", isDir=" + isDir + ", hidden=" + hidden + "]";
 	}
 }

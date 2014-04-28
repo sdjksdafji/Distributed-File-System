@@ -6,12 +6,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Scope;
 
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLBeanName;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 
 import cs5412.project.distributed_file_system.dao.FileDAO;
@@ -20,11 +23,12 @@ import cs5412.project.distributed_file_system.service.UserAccountService;
 
 @Named
 @Scope("request")
-@URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.url}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
+@URLBeanName("fileBrowserBean")
+@URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.dirPath}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
 public class FileBrowserBean {
 	private List<File> files;
 	private File selectedItem;
-	private String url;
+	private String dirPath;
 	private int userId;
 
 	@Inject
@@ -33,11 +37,21 @@ public class FileBrowserBean {
 	@Inject
 	private FileDAO fileDao;
 
+	//@URLAction
 	@PostConstruct
-	private void init() {
+	public void init() {
+		System.out.println("init function called");
 		checkLoginCookie();
 		readFileList();
 
+	}
+
+	public void openDir(ActionEvent event) {
+		if (this.selectedItem != null) {
+			System.out.println(this.selectedItem.toString());
+		} else {
+			System.out.println("selected nothing");
+		}
 	}
 
 	public String getViewPath() {
@@ -53,16 +67,14 @@ public class FileBrowserBean {
 
 	private void readFileList() {
 		if (this.userId >= 0) {
-			File rootFolder = this.fileDao.getRootDirForUser(userId);
-			this.files = this.fileDao.getFileByParentDir(rootFolder);
+//			if (this.dirPath.equals("home")) {
+				File rootFolder = this.fileDao.getRootDirForUser(userId);
+				this.files = this.fileDao.getFileByParentDir(rootFolder);
+//			} else {
+//				this.files = new ArrayList<File>();
+//			}
 		} else {
 			this.files = new ArrayList<File>();
-
-			// -------------------- test purpose -----------------------
-			this.files.add(new File("file1", false));
-			this.files.add(new File("file2", false));
-			this.files.add(new File("dir1", true));
-			// ---------------------------------------------------------
 		}
 	}
 
@@ -78,16 +90,16 @@ public class FileBrowserBean {
 		return selectedItem;
 	}
 
-	public void setSelectedItem(File selectedItem) {
+	public void setSelectedItem(File selectedItem) {System.out.println("set called");
 		this.selectedItem = selectedItem;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getDirPath() {
+		return dirPath;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setDirPath(String dirPath) {
+		this.dirPath = dirPath;
 	}
 
 }

@@ -38,7 +38,4 @@ public class HelloWorldBean {
 		this.url_variable = url_variable;
 	}
 
-	public void load() {
-		this.variable = this.url_variable;
-	}
 }

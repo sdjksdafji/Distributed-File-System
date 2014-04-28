@@ -14,21 +14,23 @@ public class FileConverter implements Converter {
 	public Object getAsObject(FacesContext facesContext, UIComponent component,
 			String submittedValue) {
 		// TODO Auto-generated method stub
+		File file = null;
 		if (!submittedValue.trim().equals("")) {
-			File file = new File();
+			file = new File();
 			file.setName(submittedValue);
 		}
-		return null;
+		return file;
 	}
 
 	@Override
-	public String getAsString(FacesContext facesContext, UIComponent component, Object value) {
+	public String getAsString(FacesContext facesContext, UIComponent component,
+			Object value) {
 		// TODO Auto-generated method stub
 		if (value == null) {
-            return "";
-        } else {
-            return ((File)value).getName();
-        }
+			return "";
+		} else {
+			return ((File) value).getName();
+		}
 	}
 
 }

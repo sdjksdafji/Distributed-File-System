@@ -1,9 +1,11 @@
 package cs5412.project.distributed_file_system.service.mock;
 
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import cs5412.project.distributed_file_system.service.UserAccountService;
 
+@Named
 public class UserAccountServiceMock implements UserAccountService {
 
 	@Override

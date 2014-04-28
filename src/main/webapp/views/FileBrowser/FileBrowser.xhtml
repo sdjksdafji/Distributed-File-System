@@ -12,45 +12,59 @@
 
 <h:body>
 
-
-	<p:panel style="width:850px">
-		<f:facet name="header">
+	<h:form id="form">
+		<p:panel style="width:850px">
+			<f:facet name="header">
         File Browser
     </f:facet>
-		<p:selectOneListbox id="fileBrowser"
-			value="#{fileBrowserBean.selectedItem}" converter="file" var="f"
-			style="height:400px;width:800px">
-			<f:selectItems value="#{fileBrowserBean.files}" var="file"
-				itemLabel="#{file.name}" itemValue="#{file}" />
+			<p:selectOneListbox id="fileBrowser"
+				value="#{fileBrowserBean.selectedItem}" converter="file" var="f"
+				style="height:400px;width:800px">
+				<f:selectItems value="#{fileBrowserBean.files}" var="file"
+					itemLabel="#{file.name}" itemValue="#{file}" />
 
-			<p:column>
-				<p:graphicImage
-					value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png"
-					width="40" />
-			</p:column>
+				<p:column>
+					<p:graphicImage
+						value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png"
+						width="40" />
+				</p:column>
 
-			<p:column>
-				<h:outputText value="#{f.name} " />
-			</p:column>
-			<p:column>
-				<h:outputText value="#{f.type} " />
-			</p:column>
-		</p:selectOneListbox>
+				<p:column>
+					<h:outputText value="#{f.name} " />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{f.type} " />
+				</p:column>
+			</p:selectOneListbox>
 
-		<f:facet name="footer">
-			<p:commandButton type="button" value="Share" icon="ui-icon-check"
-				style="margin:0" />
-			<p:commandButton type="button" value="Download" icon="ui-icon-check"
-				style="margin:30" />
-			<p:commandButton type="button" value="Delete" icon="ui-icon-check"
-				style="margin:30" />
-			<p:commandButton type="button" value="Rename" icon="ui-icon-check"
-				style="margin:30" />
+			<f:facet name="footer">
+				<p:commandButton value="open1" update="display" oncomplete="PF('dlg').show()" />
+				<p:commandButton value="open" update="fileBrowser,display"
+					actionListener="#{fileBrowserBean.openDir}" icon="ui-icon-check"
+					style="margin:0" oncomplete="PF('dlg').show()" />
+				<p:commandButton value="Share" icon="ui-icon-check"
+					style="margin:30" />
+				<p:commandButton value="Download" icon="ui-icon-check"
+					style="margin:30" />
+				<p:commandButton value="Delete" icon="ui-icon-check"
+					style="margin:30" />
+				<p:commandButton value="Rename" icon="ui-icon-check"
+					style="margin:30" />
 
-		</f:facet>
-	</p:panel>
+			</f:facet>
+		</p:panel>
 
+		<p:dialog header="Selected Values" modal="true" showEffect="fade"
+			hideEffect="fade" widgetVar="dlg">
+			<h:panelGrid columns="2" id="display">
 
+				<h:outputText value="Value:" />
+				<h:outputText id="selectedFile"
+					value="#{fileBrowserBean.selectedItem}" />
+			</h:panelGrid>
+		</p:dialog>
+
+	</h:form>
 
 
 </h:body>
