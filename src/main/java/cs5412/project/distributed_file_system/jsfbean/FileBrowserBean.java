@@ -29,7 +29,7 @@ import cs5412.project.distributed_file_system.service.UserAccountService;
 @URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.dirPath}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
 public class FileBrowserBean {
 	private List<File> files;
-	private File selectedItem;
+	private File selectedItem;// only fid is valid in selectedItem, other fields are all default value
 	private String dirPath;
 	private int userId;
 	private int folderFid = -1;
@@ -51,8 +51,6 @@ public class FileBrowserBean {
 	@URLAction
 	// @PostConstruct
 	public void init() {
-		System.out.println("init function called");
-		System.out.println("folder fid in init: "+this.folderFid);
 		checkLoginCookie();
 		this.readFidFromCookie();
 		System.out.println("folder fid after read cookie: "+this.folderFid);
@@ -97,6 +95,12 @@ public class FileBrowserBean {
 					this.storeFidInCookie();
 				}
 			}
+		}
+	}
+	
+	public void deleteActionListener(ActionEvent actionEvent){
+		if (this.selectedItem != null) {
+			this.fileDao.deleteFile(selectedItem);
 		}
 	}
 

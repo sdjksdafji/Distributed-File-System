@@ -46,9 +46,10 @@
 					style="margin:30" />
 				<p:commandButton value="Download" icon="ui-icon-check"
 					style="margin:30" />
-				<p:commandButton value="Delete" icon="ui-icon-check"
+				<p:commandButton value="Delete" update="fileBrowser" ajax="true"
+					actionListener="#{fileBrowserBean.deleteActionListener}" icon="ui-icon-check"
 					style="margin:30" />
-				<p:commandButton value="Parent Folder"  update="fileBrowser" ajax="true"
+				<p:commandButton value="Parent Folder" update="fileBrowser" ajax="true"
 					actionListener="#{fileBrowserBean.parentFolderActionListener}" icon="ui-icon-check"
 					style="margin:30" />
 

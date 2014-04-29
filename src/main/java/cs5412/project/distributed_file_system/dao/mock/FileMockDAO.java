@@ -52,6 +52,7 @@ public class FileMockDAO implements FileDAO {
 
 	@Override
 	public boolean deleteFile(File file) {
+		System.out.println("delete file called");
 		// TODO Auto-generated method stub
 		return false;
 	}
