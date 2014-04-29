@@ -27,7 +27,7 @@ import cs5412.project.distributed_file_system.service.UserAccountService;
 @URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.dirPath}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
 public class FileBrowserBean {
 	private List<File> files;
-	public File selectedItem;
+	private File selectedItem;
 	private String dirPath;
 	private int userId;
 
@@ -37,8 +37,8 @@ public class FileBrowserBean {
 	@Inject
 	private FileDAO fileDao;
 
-	// @URLAction
-	@PostConstruct
+	@URLAction
+	// @PostConstruct
 	public void init() {
 		System.out.println("init function called2");
 		checkLoginCookie();
@@ -69,12 +69,12 @@ public class FileBrowserBean {
 
 	private void readFileList() {
 		if (this.userId >= 0) {
-			// if (this.dirPath.equals("home")) {
-			File rootFolder = this.fileDao.getRootDirForUser(userId);
-			this.files = this.fileDao.getFileByParentDir(rootFolder);
-			// } else {
-			// this.files = new ArrayList<File>();
-			// }
+			if (this.dirPath.equals("home")) {
+				File rootFolder = this.fileDao.getRootDirForUser(userId);
+				this.files = this.fileDao.getFileByParentDir(rootFolder);
+			} else {
+				this.files = new ArrayList<File>();
+			}
 		} else {
 			this.files = new ArrayList<File>();
 		}
