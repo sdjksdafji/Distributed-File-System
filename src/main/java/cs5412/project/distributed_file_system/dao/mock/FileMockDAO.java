@@ -32,9 +32,15 @@ public class FileMockDAO implements FileDAO {
 	@Override
 	public List<File> getFileByParentDir(File parentDir) {
 		ArrayList<File> files = new ArrayList<File>();
-		files.add(new File("file1", false));
-		files.add(new File("file2", false));
-		files.add(new File("dir1", true));
+		File f = new File("file1", false);
+		f.setFid(0);
+		files.add(f);
+		f = new File("file2", false);
+		f.setFid(1);
+		files.add(f);
+		f = new File("dir1", true);
+		f.setFid(2);
+		files.add(f);
 		return files;
 	}
 

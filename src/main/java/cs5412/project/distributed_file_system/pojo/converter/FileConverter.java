@@ -15,9 +15,9 @@ public class FileConverter implements Converter {
 			String submittedValue) {
 		// TODO Auto-generated method stub
 		File file = null;
-		if (!submittedValue.trim().equals("")) {
+		if (submittedValue != null && !submittedValue.trim().equals("")) {
 			file = new File();
-			file.setName(submittedValue);
+			file.setFid(Integer.parseInt(submittedValue));
 		}
 		return file;
 	}
@@ -29,7 +29,7 @@ public class FileConverter implements Converter {
 		if (value == null) {
 			return "";
 		} else {
-			return ((File) value).getName();
+			return Integer.toString(((File) value).getFid());
 		}
 	}
 
