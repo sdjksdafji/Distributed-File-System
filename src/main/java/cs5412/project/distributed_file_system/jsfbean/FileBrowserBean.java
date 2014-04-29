@@ -50,12 +50,13 @@ public class FileBrowserBean {
 	}
 
 	public String openDir() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaa");
+		System.out.println("function openDir invoked");
 		if (this.selectedItem != null) {
 			System.out.println("selected:" + this.selectedItem);
 			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem.getFid());
 			if(this.selectedItem.isDir()){
 				this.files = this.fileDao.getFileByParentDir(this.selectedItem);
+				this.folderFid = this.selectedItem.getFid();
 			}
 		} else {
 			System.out.println("selected nothing");
