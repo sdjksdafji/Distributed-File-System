@@ -29,6 +29,7 @@ public class FileMockDAO implements FileDAO {
 	public File getFileByFid(int fid) {
 		File file = new File("",true);
 		file.setFid(fid);
+		file.setParentDir(3);
 		return file;
 	}
 

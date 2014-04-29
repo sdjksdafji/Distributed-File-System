@@ -40,7 +40,7 @@
 			<f:facet name="footer">
 				<!-- 				<p:commandButton value="open1" update="display" oncomplete="PF('dlg').show()" /> -->
 				<p:commandButton value="open" update="fileBrowser" ajax="true"
-					action="#{fileBrowserBean.openDir}" icon="ui-icon-check"
+					actionListener="#{fileBrowserBean.openDir}" icon="ui-icon-check"
 					style="margin:0" />
 				<p:commandButton value="Share" icon="ui-icon-check"
 					style="margin:30" />
@@ -48,7 +48,8 @@
 					style="margin:30" />
 				<p:commandButton value="Delete" icon="ui-icon-check"
 					style="margin:30" />
-				<p:commandButton value="Rename" icon="ui-icon-check"
+				<p:commandButton value="Parent Folder"  update="fileBrowser" ajax="true"
+					actionListener="#{fileBrowserBean.parentFolderActionListener}" icon="ui-icon-check"
 					style="margin:30" />
 
 			</f:facet>
