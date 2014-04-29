@@ -1,11 +1,18 @@
 package cs5412.project.distributed_file_system.pojo;
 
+import javax.inject.Inject;
+
+import cs5412.project.distributed_file_system.service.Sha1HashService;
+
 public class User {
 	private int uid;
 	private String username;
 	private String password;
 	private String email;
 	private int rootfid;
+
+	@Inject
+	private Sha1HashService sha1HashService;
 
 	public int getUid() {
 		return uid;
@@ -32,7 +39,7 @@ public class User {
 	}
 
 	public void setUnhashedPassword(String password) {
-		this.password = password;
+		this.password = this.sha1HashService.sha1(password);
 	}
 
 	public String getEmail() {
