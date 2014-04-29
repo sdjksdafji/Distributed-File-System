@@ -30,6 +30,7 @@ public class FileBrowserBean {
 	private File selectedItem;
 	private String dirPath;
 	private int userId;
+	private int folderFid = -1;
 
 	@Inject
 	private UserAccountService userAccountService;
@@ -42,7 +43,9 @@ public class FileBrowserBean {
 	public void init() {
 		System.out.println("init function called2");
 		checkLoginCookie();
-		readFileList();
+		if (this.folderFid < 0) {
+			readFileList();
+		}
 
 	}
 
@@ -50,6 +53,10 @@ public class FileBrowserBean {
 		System.out.println("aaaaaaaaaaaaaaaaaaaa");
 		if (this.selectedItem != null) {
 			System.out.println("selected:" + this.selectedItem);
+			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem.getFid());
+			if(this.selectedItem.isDir()){
+				this.files = this.fileDao.getFileByParentDir(this.selectedItem);
+			}
 		} else {
 			System.out.println("selected nothing");
 		}

@@ -27,8 +27,9 @@ public class FileMockDAO implements FileDAO {
 
 	@Override
 	public File getFileByFid(int fid) {
-		// TODO Auto-generated method stub
-		return null;
+		File file = new File("",true);
+		file.setFid(fid);
+		return file;
 	}
 
 	@Override
