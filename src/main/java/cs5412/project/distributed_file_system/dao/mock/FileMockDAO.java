@@ -11,6 +11,8 @@ import cs5412.project.distributed_file_system.pojo.File;
 @Named
 public class FileMockDAO implements FileDAO {
 
+	//private static int base = 0;
+	
 	@Override
 	public int createFile(File file) {
 		// TODO Auto-generated method stub
@@ -31,16 +33,18 @@ public class FileMockDAO implements FileDAO {
 
 	@Override
 	public List<File> getFileByParentDir(File parentDir) {
+		int base = 0;
 		ArrayList<File> files = new ArrayList<File>();
-		File f = new File("file1", false);
-		f.setFid(0);
+		File f = new File("file1" + (parentDir==null?"null":parentDir.getFid()), false);//
+		f.setFid(0+base);
 		files.add(f);
 		f = new File("file2", false);
-		f.setFid(1);
+		f.setFid(1+base);
 		files.add(f);
 		f = new File("dir1", true);
-		f.setFid(2);
+		f.setFid(2+base);
 		files.add(f);
+		base += 3;
 		return files;
 	}
 
