@@ -19,11 +19,29 @@
 
 	<h:form id="form">
 
-		<p:commandButton id="downloadLink" value="Download" ajax="false"
-			onclick="PrimeFaces.monitorDownload(start, stop)"
-			icon="ui-icon-arrowthichk-s">
-			<p:fileDownload value="#{fileDownloadController.file}" />
-		</p:commandButton>
+		<p:panelGrid columns="2">
+			<f:facet name="header">Shared File</f:facet>
+
+			<p:column>
+				<p:graphicImage
+					value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png"
+					width="40" />
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{fileSharingBean.fileName} " />
+			</p:column>
+
+			<f:facet name="footer">
+				<p:commandButton id="downloadLink" value="Download" ajax="false"
+					onclick="PrimeFaces.monitorDownload(start, stop)"
+					disabled="#{!(fileSharingBean.isDownloadable)}"
+					icon="ui-icon-arrowthichk-s">
+					<p:fileDownload value="#{fileSharingBean.fileStream}" />
+				</p:commandButton>
+			</f:facet>
+		</p:panelGrid>
+
 
 	</h:form>
 
