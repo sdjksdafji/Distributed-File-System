@@ -204,4 +204,10 @@ public class FileJdbcDAO implements FileDAO {
 		return getFileByFid(rootfid);
 	}
 
+	@Override
+	public boolean isFilePublic(int fid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -69,4 +69,10 @@ public class FileMockDAO implements FileDAO {
 		return false;
 	}
 
+	@Override
+	public boolean isFilePublic(int fid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -12,4 +12,5 @@ public interface FileDAO {
 	public boolean deleteFile(File file);
 	public File getRootDirForUser(int userId);
 	public boolean createHistory(int uid, int fidold, int fidnew, int type);
+	public boolean isFilePublic(int fid);
 }
