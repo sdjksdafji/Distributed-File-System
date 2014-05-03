@@ -19,7 +19,6 @@ public class Sha1HashServiceImpl implements Sha1HashService {
 		try {
 			mDigest = MessageDigest.getInstance("SHA1");
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		byte[] result = mDigest.digest(str.getBytes());

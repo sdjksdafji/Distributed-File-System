@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
@@ -206,7 +205,6 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public boolean isFilePublic(int fid) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

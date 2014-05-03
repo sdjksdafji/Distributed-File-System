@@ -15,13 +15,11 @@ public class FileMockDAO implements FileDAO {
 
 	@Override
 	public int createFile(File file) {
-		// TODO Auto-generated method stub
 		return -1;
 	}
 
 	@Override
 	public boolean updateFile(File file) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -55,25 +53,21 @@ public class FileMockDAO implements FileDAO {
 	@Override
 	public boolean deleteFile(File file) {
 		System.out.println("delete file called");
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public File getRootDirForUser(int userId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean createHistory(int uid, int fidold, int fidnew, int type) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isFilePublic(int fid) {
-		// TODO Auto-generated method stub
 //		return Math.random() > 0.5 ? true : false;
 		return true;
 	}

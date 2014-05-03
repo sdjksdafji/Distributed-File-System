@@ -1,6 +1,5 @@
 package cs5412.project.distributed_file_system.service.impl;
 
-import static org.junit.Assert.*;
 
 import javax.inject.Inject;
 

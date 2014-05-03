@@ -10,7 +10,6 @@ public class UserAccountServiceMock implements UserAccountService {
 
 	@Override
 	public int getUidFromCookie(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 

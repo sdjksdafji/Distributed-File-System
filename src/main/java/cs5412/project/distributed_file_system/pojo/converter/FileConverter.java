@@ -13,7 +13,6 @@ public class FileConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent component,
 			String submittedValue) {
-		// TODO Auto-generated method stub
 		File file = null;
 		if (submittedValue != null && !submittedValue.trim().equals("")) {
 			file = new File();
@@ -25,7 +24,6 @@ public class FileConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext facesContext, UIComponent component,
 			Object value) {
-		// TODO Auto-generated method stub
 		if (value == null) {
 			return "";
 		} else {
