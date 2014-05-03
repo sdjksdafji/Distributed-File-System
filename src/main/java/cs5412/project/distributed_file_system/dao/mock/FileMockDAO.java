@@ -30,6 +30,7 @@ public class FileMockDAO implements FileDAO {
 		File file = new File("The Example File", true);
 		file.setFid(fid);
 		file.setParentDir(3);
+		file.setLocation("blah blah blah");
 		return file;
 	}
 
@@ -73,6 +74,7 @@ public class FileMockDAO implements FileDAO {
 	@Override
 	public boolean isFilePublic(int fid) {
 		// TODO Auto-generated method stub
-		return Math.random() > 0.5 ? true : false;
+//		return Math.random() > 0.5 ? true : false;
+		return true;
 	}
 }

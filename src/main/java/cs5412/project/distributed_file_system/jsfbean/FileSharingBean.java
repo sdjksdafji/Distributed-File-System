@@ -17,6 +17,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
+import cs5412.project.distributed_file_system.service.HdfsFileService;
 
 @Named
 @Scope("request")
@@ -31,14 +32,14 @@ public class FileSharingBean {
 	private StreamedContent fileStream;
 
 	@Inject
+	private HdfsFileService hdfsFileServcie;
+	@Inject
 	private FileDAO fileDao;
 
 	public FileSharingBean() {
-		InputStream stream = ((ServletContext) FacesContext
-				.getCurrentInstance().getExternalContext().getContext())
-				.getResourceAsStream("https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/DxDiag.txt");
-		fileStream = new DefaultStreamedContent(stream, "image/jpg",
-				"downloaded.txt");
+		// InputStream stream = ((ServletContext) FacesContext
+		// .getCurrentInstance().getExternalContext().getContext())
+		// .getResourceAsStream("https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/DxDiag.txt");
 	}
 
 	@URLAction
@@ -53,6 +54,10 @@ public class FileSharingBean {
 		this.isDownloadable = this.fileDao.isFilePublic(fid);
 		if (this.isDownloadable) {
 			this.file = this.fileDao.getFileByFid(fid);
+			InputStream stream = this.hdfsFileServcie.getFile(this.file
+					.getLocation());
+			fileStream = new DefaultStreamedContent(stream, "image/jpg",
+					"downloaded.txt");
 		}
 	}
 
