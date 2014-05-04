@@ -2,6 +2,7 @@ package cs5412.project.distributed_file_system.dao.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -59,6 +60,18 @@ public class HistoryJdbcDAO implements HistoryDAO {
 
 	@Override
 	public boolean deleteHisotry(History history) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<History> getLatestNHistoryForUser(int uid, int n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean revertHistory(History history) {
 		// TODO Auto-generated method stub
 		return false;
 	}
