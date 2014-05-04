@@ -208,4 +208,18 @@ public class FileJdbcDAO implements FileDAO {
 		return false;
 	}
 
+	@Override
+	public boolean mergeBranch(File srcBranch, File dstBranch) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public File forkBrank(File original, String newBranchName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+
 }

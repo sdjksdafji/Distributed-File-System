@@ -68,7 +68,19 @@ public class FileMockDAO implements FileDAO {
 
 	@Override
 	public boolean isFilePublic(int fid) {
-//		return Math.random() > 0.5 ? true : false;
+		// return Math.random() > 0.5 ? true : false;
 		return true;
+	}
+
+	@Override
+	public boolean mergeBranch(File srcBranch, File dstBranch) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public File forkBrank(File original, String newBranchName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
