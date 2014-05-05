@@ -19,6 +19,7 @@
     </f:facet>
 			<p:selectOneListbox id="fileBrowser"
 				value="#{fileBrowserBean.selectedItem}" converter="file" var="f"
+				 filter="true" filterMatchMode="contains"
 				style="height:400px;width:800px">
 				<f:selectItems value="#{fileBrowserBean.files}" var="file"
 					itemLabel="#{file.name}" itemValue="#{file}" />
@@ -47,11 +48,12 @@
 				<p:commandButton value="Download" icon="ui-icon-check"
 					style="margin:30" />
 				<p:commandButton value="Delete" update="fileBrowser" ajax="true"
-					actionListener="#{fileBrowserBean.deleteActionListener}" icon="ui-icon-check"
-					style="margin:30" />
-				<p:commandButton value="Parent Folder" update="fileBrowser" ajax="true"
-					actionListener="#{fileBrowserBean.parentFolderActionListener}" icon="ui-icon-check"
-					style="margin:30" />
+					actionListener="#{fileBrowserBean.deleteActionListener}"
+					icon="ui-icon-check" style="margin:30" />
+				<p:commandButton value="Parent Folder" update="fileBrowser"
+					ajax="true"
+					actionListener="#{fileBrowserBean.parentFolderActionListener}"
+					icon="ui-icon-check" style="margin:30" />
 
 			</f:facet>
 		</p:panel>
