@@ -25,15 +25,18 @@ import cs5412.project.distributed_file_system.service.UserAccountService;
 @Named
 @Scope("request")
 @URLBeanName("fileBrowserBean")
-@URLMapping(id = "fileBrowser", pattern = "/file_browser/#{fileBrowserBean.dirPath}", viewId = "/views/FileBrowser/FileBrowser.xhtml")
+@URLMapping(id = "fileBrowser", pattern = "/file_browser", viewId = "/views/FileBrowser/FileBrowser.xhtml")
 public class FileBrowserBean {
 	private List<File> files;
-	private File selectedItem;// only fid is valid in selectedItem, other fields are all default value
-	private String dirPath;
+	private File selectedItem;// only fid is valid in selectedItem, other fields
+								// are all default value
+	private String branchName;
+
 	private int userId;
 	private int folderFid = -1;
-	
-	public FileBrowserBean(){
+	private int branchId = -1;
+
+	public FileBrowserBean() {
 		super();
 		System.out.println("FileBrowserBean constructed");
 	}
@@ -43,19 +46,18 @@ public class FileBrowserBean {
 
 	@Inject
 	private FileDAO fileDao;
-	
+
 	@Inject
 	private CookieService cookieService;
 
 	@URLAction
-	// @PostConstruct
 	public void init() {
 		checkLoginCookie();
-		this.readFidFromCookie();
-		System.out.println("folder fid after read cookie: "+this.folderFid);
+		this.readInfoFromCookie();
+		System.out.println("folder fid after read cookie: " + this.folderFid);
 		if (this.folderFid < 0) {
-			readRootFileList();
-		}else{
+			readBranchFileList();
+		} else {
 			File temp = new File();
 			temp.setFid(this.folderFid);
 			this.files = this.fileDao.getFileByParentDir(temp);
@@ -71,7 +73,7 @@ public class FileBrowserBean {
 					.getFid());
 			if (this.selectedItem.isDir()) {
 				this.files = this.fileDao.getFileByParentDir(this.selectedItem);
-				this.folderFid =  this.selectedItem.getFid();
+				this.folderFid = this.selectedItem.getFid();
 				System.out.println("read open folder");
 				this.storeFidInCookie();
 			}
@@ -82,12 +84,17 @@ public class FileBrowserBean {
 
 	public void parentFolderActionListener(ActionEvent actionEvent) {
 		System.out.println("function parent folder invoked");
-		System.out.println("folder fid: "+this.folderFid);
-		if (folderFid >= 0) {System.out.println("folder fid: "+this.folderFid);
+		System.out.println("folder fid: " + this.folderFid);
+		if (folderFid >= 0) {
+			System.out.println("folder fid: " + this.folderFid);
 			File currentFolder = this.fileDao.getFileByFid(this.folderFid);
-			if (currentFolder != null) {System.out.println("parent dir: "+currentFolder.getParentDir());
-				File parentFolder = this.fileDao.getFileByFid(currentFolder.getParentDir());
-				if(parentFolder!=null){System.out.println("parent folder id: "+this.folderFid);
+			if (currentFolder != null && currentFolder.isBranch() == false) {
+				System.out.println("parent dir: "
+						+ currentFolder.getParentDir());
+				File parentFolder = this.fileDao.getFileByFid(currentFolder
+						.getParentDir());
+				if (parentFolder != null) {
+					System.out.println("parent folder id: " + this.folderFid);
 					this.files = this.fileDao.getFileByParentDir(parentFolder);
 					System.out.println("read parent folder");
 					this.folderFid = parentFolder.getFid();
@@ -96,8 +103,8 @@ public class FileBrowserBean {
 			}
 		}
 	}
-	
-	public void deleteActionListener(ActionEvent actionEvent){
+
+	public void deleteActionListener(ActionEvent actionEvent) {
 		if (this.selectedItem != null) {
 			this.fileDao.deleteFile(selectedItem);
 		}
@@ -114,33 +121,38 @@ public class FileBrowserBean {
 		this.userId = this.userAccountService.getUidFromCookie(request);
 	}
 
-	private void readRootFileList() {
+	private void readBranchFileList() {
+		this.files = null;
 		if (this.userId >= 0) {
-			if (this.dirPath.equals("home")) {
-				File rootFolder = this.fileDao.getRootDirForUser(userId);
-				this.files = this.fileDao.getFileByParentDir(rootFolder);
-				System.out.println("read root folder");
-			} else {
-				this.files = new ArrayList<File>();
+			File branch = this.fileDao.getFileByFid(branchId);
+			if (branch != null) {
+				this.files = this.fileDao.getFileByParentDir(branch);
+				System.out.println("read branch folder");
+
 			}
-		} else {
+		}
+		if (this.files == null) {
 			this.files = new ArrayList<File>();
 		}
 	}
-	
-	private void storeFidInCookie(){
+
+	private void storeFidInCookie() {
 		ExternalContext context = FacesContext.getCurrentInstance()
 				.getExternalContext();
-		HttpServletResponse response = (HttpServletResponse) context.getResponse();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getResponse();
 		this.cookieService.storeFolderFid(folderFid, response);
 	}
 
-	private void readFidFromCookie(){
+	private void readInfoFromCookie() {
 		ExternalContext context = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) context.getRequest();
 		this.folderFid = this.cookieService.getFolderFid(request);
+		this.branchId = this.cookieService.getBranchFid(request);
+		this.branchName = this.cookieService.getBranchName(request);
 	}
+
 	public List<File> getFiles() {
 		return files;
 	}
@@ -149,20 +161,20 @@ public class FileBrowserBean {
 		this.files = files;
 	}
 
-	public String getDirPath() {
-		return dirPath;
-	}
-
-	public void setDirPath(String dirPath) {
-		this.dirPath = dirPath;
-	}
-
 	public File getSelectedItem() {
 		return selectedItem;
 	}
 
 	public void setSelectedItem(File selectedItem) {
 		this.selectedItem = selectedItem;
+	}
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
 	}
 
 }

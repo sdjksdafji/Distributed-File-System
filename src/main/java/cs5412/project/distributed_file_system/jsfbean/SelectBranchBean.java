@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Scope;
 
@@ -18,6 +19,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
+import cs5412.project.distributed_file_system.service.CookieService;
 import cs5412.project.distributed_file_system.service.UserAccountService;
 
 @Named
@@ -31,6 +33,8 @@ public class SelectBranchBean {
 								// are all default value
 	private int userId;
 
+	@Inject
+	private CookieService cookieService;
 	@Inject
 	private FileDAO fileDao;
 	@Inject
@@ -56,8 +60,21 @@ public class SelectBranchBean {
 		}
 	}
 
-	public String select(ActionEvent e) {
-		return "";
+	public String select() {
+		if (this.selectedBranch != null) {
+			this.selectedBranch = this.fileDao.getFileByFid(this.selectedBranch
+					.getFid());
+			ExternalContext context = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			HttpServletResponse response = (HttpServletResponse) context
+					.getResponse();
+			this.cookieService.storeBranchInfo(this.selectedBranch.getFid(),
+					this.selectedBranch.getName(), response);
+			return "pretty:fileBrowser";
+		} else {
+			return null;
+		}
+
 	}
 
 	public List<File> getBranches() {

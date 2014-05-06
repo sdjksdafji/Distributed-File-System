@@ -5,5 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface CookieService {
 	public void storeFolderFid(int fid, HttpServletResponse response);
+
 	public int getFolderFid(HttpServletRequest request);
+
+	public void storeBranchInfo(int fid, String branchName,
+			HttpServletResponse response);
+
+	public int getBranchFid(HttpServletRequest request);
+
+	public String getBranchName(HttpServletRequest request);
 }

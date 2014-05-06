@@ -15,11 +15,11 @@
 	<h:form id="form">
 		<p:panel style="width:850px">
 			<f:facet name="header">
-        File Browser
-    </f:facet>
+				<h:outputText value="File Browser #{fileBrowserBean.branchName} " />
+			</f:facet>
 			<p:selectOneListbox id="fileBrowser"
 				value="#{fileBrowserBean.selectedItem}" converter="file" var="f"
-				 filter="true" filterMatchMode="contains"
+				filter="true" filterMatchMode="contains"
 				style="height:400px;width:800px">
 				<f:selectItems value="#{fileBrowserBean.files}" var="file"
 					itemLabel="#{file.name}" itemValue="#{file}" />
