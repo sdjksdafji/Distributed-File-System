@@ -10,6 +10,7 @@ public class File {
 	private int uid;
 	private boolean isDir;
 	private boolean hidden;
+	private boolean isBranch = false;
 
 	public File() {
 		super();
@@ -99,6 +100,14 @@ public class File {
 
 	public void setReferenceCount(int referenceCount) {
 		this.referenceCount = referenceCount;
+	}
+
+	public boolean isBranch() {
+		return isBranch;
+	}
+
+	public void setBranch(boolean isBranch) {
+		this.isBranch = isBranch;
 	}
 
 	@Override
