@@ -24,4 +24,6 @@ public interface FileDAO {
 	public boolean mergeBranch(File srcBranch, File dstBranch);
 
 	public File forkBrank(File original, String newBranchName);
+	
+	public List<File> getBranchesForUser(int uid);
 }

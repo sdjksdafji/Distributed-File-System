@@ -146,8 +146,9 @@ public class FileJdbcDAO implements FileDAO {
 	public boolean updateFile(File file) {
 		try {
 			// set old file invisible
-			this.jdbcTemplate.update("update File set isHidden = ? where fid = ?",
-					new Object[] { true, file.getFid() });
+			this.jdbcTemplate.update(
+					"update File set isHidden = ? where fid = ?", new Object[] {
+							true, file.getFid() });
 			// create new file
 			int fid = createFileOnly(file);
 			// write transaction to history
@@ -162,7 +163,7 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public File getFileByFid(int fid) {
-		//will return hidden files
+		// will return hidden files
 		File ret = (File) this.jdbcTemplate
 				.queryForObject(
 						"select fid, fname, location, directory, hash, hiscount, uid, isdir, ishidden from File where fid = ?",
@@ -184,8 +185,9 @@ public class FileJdbcDAO implements FileDAO {
 			return false;
 		}
 		try {
-			this.jdbcTemplate.update("update File set isHidden = ? where fid = ?",
-					new Object[] { true, file.getFid() });
+			this.jdbcTemplate.update(
+					"update File set isHidden = ? where fid = ?", new Object[] {
+							true, file.getFid() });
 			createHistory(file.getUid(), file.getFid(), 0, 2);
 		} catch (DataAccessException e) {
 			return false;
@@ -219,7 +221,11 @@ public class FileJdbcDAO implements FileDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
+	@Override
+	public List<File> getBranchesForUser(int uid) {
+		File root = this.getRootDirForUser(uid);
+		return this.getFileByParentDir(root);
+	}
 
 }

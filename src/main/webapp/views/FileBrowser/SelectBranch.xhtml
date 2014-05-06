@@ -19,7 +19,7 @@
  
  
         <h:outputText value="Select A Branch" />
-        <p:selectOneListbox id="branchSelector" value="#{selectBranchBean.selectedBranch}" converter="file" var="p" filter="true" filterMatchMode="contains">
+        <p:selectOneListbox id="branchSelector" value="#{selectBranchBean.selectedBranch}" converter="file" var="f" filter="true" filterMatchMode="contains">
             <f:selectItems value="#{selectBranchBean.branches}" var="file" itemLabel="#{file.name}" itemValue="#{file}" />
 				<p:column>
 					<h:outputText value="#{f.name} " />

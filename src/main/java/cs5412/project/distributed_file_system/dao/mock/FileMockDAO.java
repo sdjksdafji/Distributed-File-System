@@ -83,4 +83,21 @@ public class FileMockDAO implements FileDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<File> getBranchesForUser(int uid) {
+		int base = 0;
+		ArrayList<File> files = new ArrayList<File>();
+		File f = new File("master", true);//
+		f.setFid(0 + base);
+		files.add(f);
+		f = new File("branch1", true);
+		f.setFid(1 + base);
+		files.add(f);
+		f = new File("branch2", true);
+		f.setFid(2 + base);
+		files.add(f);
+		base += 3;
+		return files;
+	}
 }

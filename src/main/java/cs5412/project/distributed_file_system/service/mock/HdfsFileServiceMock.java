@@ -50,11 +50,11 @@ public class HdfsFileServiceMock implements HdfsFileService {
 					.open(filenamePath);
 			return hadoopInputStream;
 			// InputStream inputStream = new FileInputStream(hadoopInputStream.)
-//			String messageIn;
-//			while ((messageIn = hadoopInputStream.readLine()) != null) {
-//				System.out.println("message: " + messageIn);
-//			}
-//			hadoopInputStream.close();
+			// String messageIn;
+			// while ((messageIn = hadoopInputStream.readLine()) != null) {
+			// System.out.println("message: " + messageIn);
+			// }
+			// hadoopInputStream.close();
 		} catch (IOException ioe) {
 			System.err.println("IOException during operation: "
 					+ ioe.toString());
