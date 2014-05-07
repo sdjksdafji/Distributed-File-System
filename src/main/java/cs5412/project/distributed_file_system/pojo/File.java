@@ -11,6 +11,7 @@ public class File {
 	private boolean isDir;
 	private boolean hidden;
 	private boolean isBranch = false;
+	private boolean isPublic;
 
 	public File() {
 		super();

@@ -8,7 +8,7 @@ import javax.inject.Named;
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
 
-@Named
+//@Named
 public class FileMockDAO implements FileDAO {
 
 	// private static int base = 0;
