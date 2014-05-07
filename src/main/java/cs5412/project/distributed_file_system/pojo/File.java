@@ -126,7 +126,7 @@ public class File {
 		File otherFile = (File) other;
 		return this.fid == otherFile.getFid();
 	}
-	
+
 	public boolean isPublic() {
 		return isPublic;
 	}
@@ -134,5 +134,22 @@ public class File {
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
 
+	}
+
+	@Override
+	public File clone() {
+		File ret = new File();
+		ret.fid = this.fid;
+		ret.name = this.name;
+		ret.location = this.location;
+		ret.parentDir = this.parentDir;
+		ret.hash = this.hash;
+		ret.referenceCount = this.referenceCount;
+		ret.uid = this.uid;
+		ret.isDir = this.isDir;
+		ret.hidden = this.hidden;
+		ret.isBranch = this.isBranch;
+		ret.isPublic = this.isPublic;
+		return ret;
 	}
 }
