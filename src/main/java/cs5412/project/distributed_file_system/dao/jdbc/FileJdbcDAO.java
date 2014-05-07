@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -212,8 +213,43 @@ public class FileJdbcDAO implements FileDAO {
 
 	@Override
 	public boolean mergeBranch(File srcBranch, File dstBranch) {
-		// TODO Auto-generated method stub
-		return false;
+		if (!srcBranch.isDir() || !dstBranch.isDir()) {
+			return false;
+		}
+		boolean isSuccess = true;
+		List<File> srclist = getFileByParentDir(srcBranch);
+		List<File> dstlist = getFileByParentDir(srcBranch);
+		HashMap<String, File> dstlisthash = new HashMap<String, File>();
+		HashMap<String, File> dstlistdir = new HashMap<String, File>();
+		for (File dstfile : dstlist) {
+			if (!dstfile.isDir()) {
+				dstlisthash.put(dstfile.getHash(), dstfile);
+			} else {
+				dstlistdir.put(dstfile.getName(), dstfile);
+			}
+		}
+		for (File srcfile : srclist) {
+			if (!srcfile.isDir()) {
+				if (!dstlisthash.containsKey(srcfile.getHash())) {
+					srcfile.setParentDir(dstBranch.getFid());
+					isSuccess = updateFile(srcfile) && isSuccess;
+				} else {
+					isSuccess = deleteFile(srcfile) && isSuccess;
+				}
+			} else {
+				if (!dstlistdir.containsKey(srcfile.getName())) {
+					srcfile.setParentDir(dstBranch.getFid());
+					isSuccess = updateFile(srcfile) && isSuccess;
+				} else {
+					File dstdir = dstlistdir.get(srcfile.getName());
+					isSuccess = mergeBranch(srcfile, dstdir) && isSuccess;
+				}
+			}
+		}
+		if (isSuccess) {
+			isSuccess = deleteFile(srcBranch);
+		}
+		return isSuccess;
 	}
 
 	@Override

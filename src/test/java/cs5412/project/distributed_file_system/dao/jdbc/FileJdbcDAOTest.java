@@ -99,6 +99,16 @@ public class FileJdbcDAOTest {
 		}
 	}
 	
+	@Test
+	public void testMergeBranch() {
+		File srcbranch = fileDao.getFileByFid(1);
+		File dstbranch = fileDao.getFileByFid(1);
+		boolean isSuccess = fileDao.mergeBranch(srcbranch, dstbranch);
+		if (!isSuccess) {
+			fail("merge branch fail");
+		}
+	}
+	
 	
 
 }

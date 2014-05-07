@@ -125,4 +125,13 @@ public class File {
 		File otherFile = (File) other;
 		return this.fid == otherFile.getFid();
 	}
+	
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+
+	}
 }
