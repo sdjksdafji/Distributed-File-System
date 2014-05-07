@@ -238,7 +238,7 @@ public class FileJdbcDAO implements FileDAO {
 			}
 		}
 		for (File srcfile : srclist) {
-			//System.out.println("\tsrclist "+srcfile.getName());
+			// System.out.println("\tsrclist "+srcfile.getName());
 			if (!srcfile.isDir()) {
 				if (!dstlisthash.containsKey(srcfile.getHash())) {
 					srcfile.setParentDir(dstBranch.getFid());
@@ -259,7 +259,7 @@ public class FileJdbcDAO implements FileDAO {
 				} else {
 					dstdir = dstlistdir.get(srcfile.getName());
 				}
-				//System.out.println("merge "+srcfile.getName()+" to "+dstdir.getName());
+				// System.out.println("merge "+srcfile.getName()+" to "+dstdir.getName());
 				isSuccess = mergeBranch(srcfile, dstdir) && isSuccess;
 			}
 		}
@@ -269,25 +269,65 @@ public class FileJdbcDAO implements FileDAO {
 		return isSuccess;
 	}
 
-	// private boolean deleteDir(File dir) {
-	// if(!dir.isDir()){
-	// return false;
-	// }
-	// boolean isSuccess = true;
-	// List<File> ls = getFileByParentDir(dir);
-	// for(File f:ls){
-	// isSuccess = deleteFile(f) && isSuccess;
-	// }
-	// if(isSuccess){
-	// isSuccess = deleteFile(dir);
-	// }
-	// return isSuccess;
-	// }
+	private boolean deleteDir(File dir) {
+		if (!dir.isDir()) {
+			return false;
+		}
+		boolean isSuccess = true;
+		List<File> ls = getFileByParentDir(dir);
+		for (File f : ls) {
+			isSuccess = deleteFile(f) && isSuccess;
+		}
+		if (isSuccess) {
+			isSuccess = deleteFile(dir);
+		}
+		return isSuccess;
+	}
 
 	@Override
 	public File forkBrank(File original, String newBranchName) {
-		// TODO Auto-generated method stub
-		return null;
+		if (!original.isDir()) {
+			return null;
+		}
+		File dstDir = original.clone();
+		dstDir.setName(newBranchName);
+		int dstfid = createFile(dstDir);
+		dstDir.setFid(dstfid);
+		System.out.println("forkBrank fork "+original.getName()+" to "+dstDir.getName());
+		boolean isSuccess = forkBrank(original, dstDir);
+		if (!isSuccess) {
+			deleteDir(dstDir);
+			return null;
+		} else {
+			return dstDir;
+		}
+	}
+
+	private boolean forkBrank(File srcdir, File dstDir) {
+		List<File> srclist = getFileByParentDir(srcdir);
+		boolean isSuccess = true;
+		for (File srcfile : srclist) {
+			System.out.println("\tsrclist "+srcfile.getName());
+			if (!srcfile.isDir()) {
+				srcfile.setParentDir(dstDir.getFid());
+				int fid = createFile(srcfile);
+				if (fid <= 0) {
+					isSuccess = false;
+				}
+			} else {
+				File dstsubdir;
+				dstsubdir = srcfile.clone();
+				dstsubdir.setParentDir(dstDir.getFid());
+				int dstdirfid = createFile(dstsubdir);
+				if (dstdirfid <= 0) {
+					isSuccess = false;
+				}
+				dstsubdir.setFid(dstdirfid);
+				System.out.println("fork "+srcfile.getName()+" to "+dstDir.getName());
+				isSuccess = forkBrank(srcfile, dstsubdir) && isSuccess;
+			}
+		}
+		return isSuccess;
 	}
 
 	@Override
