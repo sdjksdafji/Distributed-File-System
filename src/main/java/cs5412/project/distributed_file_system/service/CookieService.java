@@ -14,4 +14,7 @@ public interface CookieService {
 	public int getBranchFid(HttpServletRequest request);
 
 	public String getBranchName(HttpServletRequest request);
+
+	public int getUidFromCookie(HttpServletRequest request);
+
 }

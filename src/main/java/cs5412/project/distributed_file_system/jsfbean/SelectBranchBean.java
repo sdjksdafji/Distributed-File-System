@@ -3,6 +3,7 @@ package cs5412.project.distributed_file_system.jsfbean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -11,6 +12,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
 
 import com.ocpsoft.pretty.faces.annotation.URLAction;
@@ -75,6 +78,26 @@ public class SelectBranchBean {
 			return null;
 		}
 
+	}
+
+	public void merge() {
+		ExternalContext context = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getResponse();
+		this.cookieService.storeBranchInfo(this.selectedBranch.getFid(),
+				"Not Valid", response);
+		RequestContext.getCurrentInstance()
+				.openDialog("selectMergeDestination");
+	}
+
+	public void onMergingDestinationChosen(SelectEvent event) {
+		File dstBranch = (File) event.getObject();
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Branch Merged", "Source:" + selectedBranch.getName()
+						+ "   Destination:" + dstBranch.getName());
+
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
 	public List<File> getBranches() {

@@ -10,6 +10,7 @@ import cs5412.project.distributed_file_system.service.CookieService;
 @Named
 public class CookieServiceImpl implements CookieService {
 
+	private static final String UID = "UidBySW773";
 	private static final String FID = "FidBySW773";
 	private static final String BRANCH_ID = "BidBySW773";
 	private static final String BRANCH_NAME = "BranchNameBySW773";
@@ -74,6 +75,15 @@ public class CookieServiceImpl implements CookieService {
 			return branchName;
 		}
 		return "";
+	}
+
+	@Override
+	public int getUidFromCookie(HttpServletRequest request) {
+		String uidStr = this.getCookieVal(UID, request);
+		if (uidStr != null) {
+			return Integer.parseInt(uidStr);
+		}
+		return -1;
 	}
 
 }
