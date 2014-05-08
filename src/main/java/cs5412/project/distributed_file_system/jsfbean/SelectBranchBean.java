@@ -80,24 +80,48 @@ public class SelectBranchBean {
 
 	}
 
+	public void deleteActionListener(ActionEvent actionEvent) {
+		if (this.selectedBranch != null) {
+			this.selectedBranch = this.fileDao.getFileByFid(this.selectedBranch
+					.getFid());
+			this.fileDao.deleteFile(selectedBranch);
+		}
+	}
+
 	public void merge() {
-		ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		HttpServletResponse response = (HttpServletResponse) context
-				.getResponse();
-		this.cookieService.storeBranchInfo(this.selectedBranch.getFid(),
-				"Not Valid", response);
-		RequestContext.getCurrentInstance()
-				.openDialog("selectMergeDestination");
+		if (this.selectedBranch != null) {
+			ExternalContext context = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			HttpServletResponse response = (HttpServletResponse) context
+					.getResponse();
+			this.cookieService.storeBranchInfo(this.selectedBranch.getFid(),
+					"Not Valid", response);
+			RequestContext.getCurrentInstance().openDialog(
+					"selectMergeDestination");
+		}
 	}
 
 	public void onMergingDestinationChosen(SelectEvent event) {
+		File srcBranch = this.fileDao
+				.getFileByFid(this.readFidOfSourceBranch());
 		File dstBranch = (File) event.getObject();
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Branch Merged", "Source:" + selectedBranch.getName()
-						+ "   Destination:" + dstBranch.getName());
-
+		FacesMessage message = null;
+		if (this.fileDao.mergeBranch(srcBranch, dstBranch)) {
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Branch Merged Successfully", "\"" + srcBranch.getName()
+							+ "\" merged into \"" + dstBranch.getName() + "\"");
+		} else {
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Branch Merging Failed", "Unknown Error occured");
+		}
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	private int readFidOfSourceBranch() {
+		ExternalContext context = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) context.getRequest();
+		return this.cookieService.getBranchFid(request);
 	}
 
 	public List<File> getBranches() {

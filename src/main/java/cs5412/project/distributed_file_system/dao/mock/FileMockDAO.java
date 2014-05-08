@@ -75,7 +75,7 @@ public class FileMockDAO implements FileDAO {
 	@Override
 	public boolean mergeBranch(File srcBranch, File dstBranch) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

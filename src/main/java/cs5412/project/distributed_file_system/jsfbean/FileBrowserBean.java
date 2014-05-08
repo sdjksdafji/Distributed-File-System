@@ -106,6 +106,8 @@ public class FileBrowserBean {
 
 	public void deleteActionListener(ActionEvent actionEvent) {
 		if (this.selectedItem != null) {
+			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem
+					.getFid());
 			this.fileDao.deleteFile(selectedItem);
 		}
 	}
