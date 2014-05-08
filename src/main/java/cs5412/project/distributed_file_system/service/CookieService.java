@@ -17,4 +17,8 @@ public interface CookieService {
 
 	public int getUidFromCookie(HttpServletRequest request);
 
+	public void storeUid(int uid, HttpServletResponse response);
+
+	public boolean verifyUid(int uid, HttpServletRequest request);
+
 }
