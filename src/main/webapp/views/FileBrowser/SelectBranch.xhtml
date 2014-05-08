@@ -39,7 +39,8 @@
 
 		<p:commandButton value="Merge To" icon="ui-icon-extlink"
 			actionListener="#{selectBranchBean.merge}">
-			<p:ajax event="dialogReturn" listener="#{selectBranchBean.onMergingDestinationChosen}"
+			<p:ajax event="dialogReturn"
+				listener="#{selectBranchBean.onMergingDestinationChosen}"
 				update="growl" />
 		</p:commandButton>
 
