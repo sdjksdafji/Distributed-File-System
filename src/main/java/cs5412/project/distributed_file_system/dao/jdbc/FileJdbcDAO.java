@@ -52,7 +52,7 @@ public class FileJdbcDAO implements FileDAO {
 		}
 	}
 
-	private static final class UserMapper implements RowMapper<User> {
+	public static final class UserMapper implements RowMapper<User> {
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
 			user.setUid(rs.getInt("uid"));
