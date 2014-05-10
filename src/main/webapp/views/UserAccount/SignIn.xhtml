@@ -20,22 +20,22 @@
 			<h:panelGrid columns="3" id="signUpGrid">
 
 				<h:outputLabel value="Username: " />
-				<p:inputText id="username" value="#{CWLLoginBean.cwlPassword}"
+				<p:inputText id="username" value="#{loginBean.username}"
 					label="Username" required="true">
 					<f:validateLength minimum="6" />
 				</p:inputText>
 				<p:message for="username" display="icon" />
 
 				<h:outputLabel value="Password: " />
-				<p:password id="pass" value="#{CWLLoginBean.cwlPassword}"
-					label="Password" required="true">
+				<p:password id="pass" value="#{loginBean.password}" label="Password"
+					required="true">
 					<f:validateLength minimum="8" />
 				</p:password>
 				<p:message for="pass" display="icon" />
 			</h:panelGrid>
 
 			<h:commandButton id="login" value="Sign In"
-				action="#{CWLLoginBean.cwlLogin}" ajax="false" />
+				action="#{loginBean.signIn}" ajax="false" />
 
 
 		</p:panel>

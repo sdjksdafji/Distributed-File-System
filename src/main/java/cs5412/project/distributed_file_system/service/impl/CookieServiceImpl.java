@@ -20,9 +20,6 @@ public class CookieServiceImpl implements CookieService {
 	private static final String BRANCH_NAME = "BranchNameBySW773";
 	private static final int COOKIE_TIMEOUT = 120;
 
-	@Inject
-	private Sha1HashService sha1HashService;
-
 	@Override
 	public void storeFolderFid(int fid, HttpServletResponse response) {
 		Cookie cookie = new Cookie(FID, Integer.toString(fid));
@@ -90,8 +87,8 @@ public class CookieServiceImpl implements CookieService {
 		cookie.setMaxAge(Integer.MAX_VALUE);
 		response.addCookie(cookie);
 
-		String verificationHash = this.sha1HashService.sha1(Integer
-				.toString(uid) + UID_HASHSALT);
+		String verificationHash = Sha1HashService.sha1(Integer.toString(uid)
+				+ UID_HASHSALT);
 		cookie = new Cookie(UID_VERIFICATION, verificationHash);
 		cookie.setMaxAge(Integer.MAX_VALUE);
 		response.addCookie(cookie);
@@ -112,7 +109,7 @@ public class CookieServiceImpl implements CookieService {
 		if (storedHash == null) {
 			return false;
 		}
-		String computedHash = this.sha1HashService.sha1(Integer.toString(uid)
+		String computedHash = Sha1HashService.sha1(Integer.toString(uid)
 				+ UID_HASHSALT);
 		if (computedHash.equals(storedHash)) {
 			return true;

@@ -11,9 +11,6 @@ public class User {
 	private String email;
 	private int rootfid;
 
-	@Inject
-	private Sha1HashService sha1HashService;
-
 	public int getUid() {
 		return uid;
 	}
@@ -39,7 +36,7 @@ public class User {
 	}
 
 	public void setUnhashedPassword(String password) {
-		this.password = this.sha1HashService.sha1(password);
+		this.password = Sha1HashService.sha1(password);
 	}
 
 	public String getEmail() {

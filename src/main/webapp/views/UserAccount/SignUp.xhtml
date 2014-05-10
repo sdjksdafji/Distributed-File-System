@@ -32,14 +32,14 @@
 				<p:message for="username" display="icon" />
 
 				<h:outputLabel value="Password: " />
-				<p:password id="pass" value="#{registerBean.passowrd}" match="pass2"
+				<p:password id="pass" value="#{registerBean.password}" match="pass2"
 					label="Password" required="true">
 					<f:validateLength minimum="8" />
 				</p:password>
 				<p:message for="pass" display="icon" />
 
 				<h:outputLabel value="Retype your password: " />
-				<p:password id="pass2" value="#{registerBean.passowrd}"
+				<p:password id="pass2" value="#{registerBean.password}"
 					label="Retyping Password" required="true">
 					<f:validateLength minimum="8" />
 				</p:password>
