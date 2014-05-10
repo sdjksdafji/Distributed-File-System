@@ -32,9 +32,9 @@ public class FileJdbcDAOTest {
 
 	@Test
 	public void testCreateFile() {
-		File file = new File("file3", false);
+		File file = new File("testfile", false);
 		file.setUid(1);
-		file.setParentDir(3);
+		file.setParentDir(1);
 		file.setPublic(true);
 		file.setHash("hjkl");
 		tmpfid = fileDao.createFile(file);

@@ -24,7 +24,7 @@ import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
 import cs5412.project.distributed_file_system.pojo.User;
 
-//@Named
+@Named
 public class FileJdbcDAO implements FileDAO {
 
 	@Inject
@@ -52,7 +52,7 @@ public class FileJdbcDAO implements FileDAO {
 		}
 	}
 
-	private static final class UserMapper implements RowMapper<User> {
+	public static final class UserMapper implements RowMapper<User> {
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
 			user.setUid(rs.getInt("uid"));

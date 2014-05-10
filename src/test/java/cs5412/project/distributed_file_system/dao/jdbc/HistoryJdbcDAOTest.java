@@ -2,6 +2,8 @@ package cs5412.project.distributed_file_system.dao.jdbc;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -49,6 +51,20 @@ public class HistoryJdbcDAOTest {
 	@Test
 	public void testDeleteHisotry() {
 		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetLatestNHistoryForUser() {
+		List<History> ls = historyDao.getLatestNHistoryForUser(1, 3);
+		if (ls.size() == 0) {
+			fail("testGetLatestNHistoryForUser fail");
+		} else {
+			for (History h : ls) {
+				System.out.println(h.getHid() + " " + h.getTs() + " "
+						+ h.getUid() + " " + h.getOldFid() + " "
+						+ h.getNewFid() + " " + h.getOperationType());
+			}
+		}
 	}
 
 }
