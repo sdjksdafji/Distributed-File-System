@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+	<h:form id="form">
+
+		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5"
+			columnClasses="label, column">
+
+
+			<h:outputText value="History" />
+			<p:selectOneListbox id="historySelector"
+				value="#{revertHistoryBean.selectedHistory}" converter="history"
+				var="h" filter="true" filterMatchMode="contains">
+				<f:selectItems value="#{revertHistoryBean.histories}" var="history"
+					itemLabel="#{history.hid}" itemValue="#{history}" />
+				<p:column>
+					<h:outputText value="#{h.ts} " />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{h.operationType} " />
+				</p:column>
+
+			</p:selectOneListbox>
+
+		</h:panelGrid>
+
+		<p:separator />
+
+		<p:commandButton id="submitButton" value="Revert" ajax="true"
+			actionListener="#{revertHistoryBean.revertActionListener}">
+			<p:confirm header="Confirmation"
+				message="Are you sure to revert ? (The action is permanent and cannot be undone)"
+				icon="ui-icon-alert" />
+		</p:commandButton>
+
+
+
+
+
+
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+
+
+	</h:form>
+
+
+
+</h:body>
+</html>

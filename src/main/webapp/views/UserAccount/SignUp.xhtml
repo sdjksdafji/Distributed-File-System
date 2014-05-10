@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+	<h:form id="form">
+
+		<p:panel header="User Sign Up">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+			<h:panelGrid columns="2" id="signUpGrid">
+				<h:outputLabel value="CWL Login Name:" />
+				<p:inputText id="cwlLoginName" value="#{CWLLoginBean.cwlLoginName}"
+					label="CWL Login Name" required="true" />
+
+				<h:outputLabel value="CWL Password:" />
+				<p:password id="cwlPassword" value="#{CWLLoginBean.cwlPassword}"
+					label="CWL Password" required="true" />
+			</h:panelGrid>
+
+			<h:commandButton id="submitButton" value="Login"
+				action="#{CWLLoginBean.cwlLogin}" ajax="false"/>
+				
+				
+		</p:panel>
+
+	</h:form>
+
+</h:body>
+</html>
