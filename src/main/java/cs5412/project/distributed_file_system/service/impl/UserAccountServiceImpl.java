@@ -5,6 +5,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.dao.UserDAO;
 import cs5412.project.distributed_file_system.pojo.User;
 import cs5412.project.distributed_file_system.service.CookieService;
@@ -15,6 +16,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Inject
 	private UserDAO userDao;
+
+	@Inject
+	private FileDAO fileDao;
 
 	@Inject
 	private CookieService cookieService;
@@ -34,6 +38,17 @@ public class UserAccountServiceImpl implements UserAccountService {
 		if (this.userDao
 				.userLogin(user.getUsername(), user.getHashedPassword())) {
 			this.cookieService.storeUid(user.getUid(), response);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean register(User user) {
+		int uid = this.userDao.createUser(user);
+		user.setUid(uid);
+		if (uid >= 0) {
 			return true;
 		} else {
 			return false;

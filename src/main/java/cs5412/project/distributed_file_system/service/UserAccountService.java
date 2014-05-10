@@ -12,4 +12,6 @@ public interface UserAccountService {
 	public int getUidFromCookie(HttpServletRequest request);
 
 	public boolean login(User user, HttpServletResponse response);
+
+	public boolean register(User user);
 }

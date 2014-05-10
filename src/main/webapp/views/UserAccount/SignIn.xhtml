@@ -18,36 +18,24 @@
 			<p:messages id="messages" showDetail="true" autoUpdate="true" />
 
 			<h:panelGrid columns="3" id="signUpGrid">
-				<h:outputLabel value="Email: " />
-				<p:inputText id="email" value="#{registerBean.email}"
-					label="Email Address" required="true" />
-
-				<p:message for="email" display="icon" />
 
 				<h:outputLabel value="Username: " />
-				<p:inputText id="username" value="#{registerBean.username}"
+				<p:inputText id="username" value="#{CWLLoginBean.cwlPassword}"
 					label="Username" required="true">
 					<f:validateLength minimum="6" />
 				</p:inputText>
 				<p:message for="username" display="icon" />
 
 				<h:outputLabel value="Password: " />
-				<p:password id="pass" value="#{registerBean.passowrd}" match="pass2"
+				<p:password id="pass" value="#{CWLLoginBean.cwlPassword}"
 					label="Password" required="true">
 					<f:validateLength minimum="8" />
 				</p:password>
 				<p:message for="pass" display="icon" />
-
-				<h:outputLabel value="Retype your password: " />
-				<p:password id="pass2" value="#{registerBean.passowrd}"
-					label="Retyping Password" required="true">
-					<f:validateLength minimum="8" />
-				</p:password>
-				<p:message for="pass2" display="icon" />
 			</h:panelGrid>
 
-			<h:commandButton id="register" value="Sign Up"
-				action="#{registerBean.register}" ajax="false" />
+			<h:commandButton id="login" value="Sign In"
+				action="#{CWLLoginBean.cwlLogin}" ajax="false" />
 
 
 		</p:panel>
