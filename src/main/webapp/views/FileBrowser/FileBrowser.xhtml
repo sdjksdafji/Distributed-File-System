@@ -58,6 +58,13 @@
 					ajax="true"
 					actionListener="#{fileBrowserBean.parentFolderActionListener}"
 					icon="ui-icon-check" style="margin:30" />
+				<p:commandButton value="Create Folder" update="fileBrowser"
+					ajax="true"
+					actionListener="#{fileBrowserBean.createFolderActionListener}"
+					icon="ui-icon-check" style="margin:30">
+					<p:ajax event="dialogReturn"
+						listener="#{fileBrowserBean.onFileNameEntered}" update="growl" />
+				</p:commandButton>
 			</f:facet>
 		</p:panel>
 
@@ -68,6 +75,7 @@
 				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 		</p:confirmDialog>
 
+		<p:growl id="growl" showDetail="true" />
 	</h:form>
 
 

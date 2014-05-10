@@ -11,6 +11,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
 
 import com.ocpsoft.pretty.faces.annotation.URLAction;
@@ -102,6 +104,19 @@ public class FileBrowserBean {
 				}
 			}
 		}
+	}
+
+	public void createFolderActionListener(ActionEvent actionEvent) {
+		System.out.println("function create folder invoked");
+		if (folderFid >= 0) {
+			RequestContext.getCurrentInstance().openDialog("inputFolderName");
+		}
+	}
+
+	public void onFileNameEntered(SelectEvent event) {
+		String folderName = (String) event.getObject();
+		System.out.println("fid = " + folderFid);
+		System.out.println(folderName);
 	}
 
 	public void deleteActionListener(ActionEvent actionEvent) {

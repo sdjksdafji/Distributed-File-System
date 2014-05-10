@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Will be merged to branch</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/css/default.css" />
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:panel header="Create Folder">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+			<h:panelGrid columns="3" id="createGrid">
+				<h:outputLabel value="Folder Name: " />
+				<p:inputText id="name" value="#{inputFolderNameBean.name}"
+					label="Foler Name" required="true">
+					<f:validateLength minimum="1" />
+				</p:inputText>
+
+				<p:message for="name" display="icon" />
+			</h:panelGrid>
+			<h:commandButton value="Create"
+				actionListener="#{inputFolderNameBean.submit}" />
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>

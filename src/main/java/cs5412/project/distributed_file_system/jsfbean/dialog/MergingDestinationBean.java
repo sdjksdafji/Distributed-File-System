@@ -1,4 +1,4 @@
-package cs5412.project.distributed_file_system.jsfbean;
+package cs5412.project.distributed_file_system.jsfbean.dialog;
 
 import java.io.Serializable;
 import java.util.List;
