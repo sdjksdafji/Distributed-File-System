@@ -3,15 +3,15 @@ package cs5412.project.distributed_file_system.pojo;
 public class File {
 	private int fid;
 	private String name;
-	private String location;
-	private int parentDir;
-	private String hash;
-	private int referenceCount;
+	private String location = "";
+	private int parentDir = -1;
+	private String hash = "";
+	private int referenceCount = 1;
 	private int uid;
 	private boolean isDir;
-	private boolean hidden;
+	private boolean hidden = false;
 	private boolean isBranch = false;
-	private boolean isPublic;
+	private boolean isPublic = false;
 
 	public File() {
 		super();
