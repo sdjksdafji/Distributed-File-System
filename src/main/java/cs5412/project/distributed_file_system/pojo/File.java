@@ -6,7 +6,7 @@ public class File {
 	private String location = "";
 	private int parentDir = -1;
 	private String hash = "";
-	private int referenceCount = 1;
+	private int referenceCount = 0;
 	private int uid;
 	private boolean isDir;
 	private boolean hidden = false;

@@ -65,6 +65,9 @@ public class FileJdbcDAO implements FileDAO {
 	}
 
 	public boolean createHistory(int uid, int fidold, int fidnew, int type) {
+		// System.out.println("createHistory " + uid + " " + fidold + " " +
+		// fidnew
+		// + " " + type);
 		try {
 			// create
 			if (type == 1) {
@@ -87,6 +90,18 @@ public class FileJdbcDAO implements FileDAO {
 				this.jdbcTemplate
 						.update("insert into History (timestamp, uid, type) values (?, ?, ?)",
 								new Object[] { new Date(), uid, type });
+			}
+			if (fidold != 0) {
+				//System.out.println("\tincrease fidold");
+				this.jdbcTemplate
+						.update("update File set hiscount = hiscount + 1 where fid = ?	",
+								new Object[] { fidold });
+			}
+			if (fidnew != 0) {
+				//System.out.println("\tincrease fidnew");
+				this.jdbcTemplate
+						.update("update File set hiscount = hiscount + 1 where fid = ?	",
+								new Object[] { fidnew });
 			}
 		} catch (DataAccessException e) {
 			return false;
@@ -293,7 +308,8 @@ public class FileJdbcDAO implements FileDAO {
 		dstDir.setName(newBranchName);
 		int dstfid = createFile(dstDir);
 		dstDir.setFid(dstfid);
-		System.out.println("forkBrank fork "+original.getName()+" to "+dstDir.getName());
+		System.out.println("forkBrank fork " + original.getName() + " to "
+				+ dstDir.getName());
 		boolean isSuccess = forkBrank(original, dstDir);
 		if (!isSuccess) {
 			deleteDir(dstDir);
@@ -307,7 +323,7 @@ public class FileJdbcDAO implements FileDAO {
 		List<File> srclist = getFileByParentDir(srcdir);
 		boolean isSuccess = true;
 		for (File srcfile : srclist) {
-			System.out.println("\tsrclist "+srcfile.getName());
+			System.out.println("\tsrclist " + srcfile.getName());
 			if (!srcfile.isDir()) {
 				srcfile.setParentDir(dstDir.getFid());
 				int fid = createFile(srcfile);
@@ -323,7 +339,8 @@ public class FileJdbcDAO implements FileDAO {
 					isSuccess = false;
 				}
 				dstsubdir.setFid(dstdirfid);
-				System.out.println("fork "+srcfile.getName()+" to "+dstDir.getName());
+				System.out.println("fork " + srcfile.getName() + " to "
+						+ dstDir.getName());
 				isSuccess = forkBrank(srcfile, dstsubdir) && isSuccess;
 			}
 		}

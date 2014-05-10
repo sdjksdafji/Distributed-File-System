@@ -105,9 +105,9 @@ public class FileJdbcDAOTest {
 	public void testMergeBranch() {
 		File srcfile = new File("srcfolder", true);
 		File dstfile = new File("dstfolder", true);
-		srcfile.setParentDir(1);
+		srcfile.setParentDir(2);
 		srcfile.setUid(1);
-		dstfile.setParentDir(1);
+		dstfile.setParentDir(2);
 		dstfile.setUid(1);
 		int srcfid = fileDao.createFile(srcfile);
 		int dstfid = fileDao.createFile(dstfile);

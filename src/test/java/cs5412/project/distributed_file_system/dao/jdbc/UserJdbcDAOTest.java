@@ -33,7 +33,7 @@ public class UserJdbcDAOTest {
 	@Test
 	public void testCreateUser() {
 		User u = new User();
-		u.setUsername("testuser");
+		u.setUsername("testuser1");
 		u.setEmail("test@test.com");
 		u.setHashedPassword("asdf");
 		int uid = userDao.createUser(u);
