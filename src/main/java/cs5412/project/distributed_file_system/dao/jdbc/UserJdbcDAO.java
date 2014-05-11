@@ -27,7 +27,7 @@ import cs5412.project.distributed_file_system.pojo.User;
 public class UserJdbcDAO implements UserDAO {
 
 	@Inject
-	private FileJdbcDAO fileDao;
+	private FileDAO fileDao;
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
