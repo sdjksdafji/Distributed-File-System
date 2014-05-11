@@ -100,4 +100,10 @@ public class FileMockDAO implements FileDAO {
 		base += 3;
 		return files;
 	}
+
+	@Override
+	public int createFileOnly(File file) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

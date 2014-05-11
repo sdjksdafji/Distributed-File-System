@@ -6,6 +6,8 @@ import cs5412.project.distributed_file_system.pojo.File;
 
 public interface FileDAO {
 	public int createFile(File file);
+	
+	public int createFileOnly(File file);
 
 	public boolean updateFile(File file);
 
@@ -26,4 +28,5 @@ public interface FileDAO {
 	public File forkBrank(File original, String newBranchName);
 	
 	public List<File> getBranchesForUser(int uid);
+
 }

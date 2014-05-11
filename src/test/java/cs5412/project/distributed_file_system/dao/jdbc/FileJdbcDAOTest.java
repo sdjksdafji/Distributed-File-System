@@ -34,7 +34,7 @@ public class FileJdbcDAOTest {
 	public void testCreateFile() {
 		File file = new File("testfile", false);
 		file.setUid(1);
-		file.setParentDir(1);
+		file.setParentDir(2);
 		file.setPublic(true);
 		file.setHash("hjkl");
 		tmpfid = fileDao.createFile(file);
@@ -47,12 +47,9 @@ public class FileJdbcDAOTest {
 
 	@Test
 	public void testUpdateFile() {
-		tmpfid = 2;
-		File file = new File("testdir_Updated", true);
-		file.setUid(1);
-		file.setFid(tmpfid);
-		file.setHidden(false);
-		file.setParentDir(1);
+		tmpfid = 23;
+		File file = fileDao.getFileByFid(tmpfid);
+		file.setName("testfile_updated");
 		boolean isSuccess = fileDao.updateFile(file);
 		if (!isSuccess) {
 			fail("update fail");
