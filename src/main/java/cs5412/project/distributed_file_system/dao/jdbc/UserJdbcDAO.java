@@ -129,7 +129,7 @@ public class UserJdbcDAO implements UserDAO {
 		file.setDir(true);
 		file.setName("root");
 		file.setParentDir(0);
-		//file.setReferenceCount(0);
+		// file.setReferenceCount(0);
 		file.setUid(uid);
 		int fid = fileDao.createFileOnly(file);
 		fileDao.createHistory(uid, 0, fid, 1);
@@ -143,7 +143,7 @@ public class UserJdbcDAO implements UserDAO {
 		master.setDir(true);
 		master.setName("master");
 		master.setParentDir(fid);
-		//master.setReferenceCount(0);
+		// master.setReferenceCount(0);
 		master.setUid(uid);
 		master.setBranch(true);
 		int masterfid = fileDao.createFile(master);
@@ -213,15 +213,15 @@ public class UserJdbcDAO implements UserDAO {
 	}
 
 	@Override
-	public boolean userLogin(String username, String hashPassword) {
+	public User userLogin(String username, String hashPassword) {
 		User u = (User) this.jdbcTemplate
 				.queryForObject(
 						"select min(uid) as uid, uname, password, email, rootfid from User where uname = ?",
 						new Object[] { username }, new FileJdbcDAO.UserMapper());
 		if (u.getHashedPassword().equals(hashPassword)) {
-			return true;
+			return u;
 		} else {
-			return false;
+			return null;
 		}
 	}
 

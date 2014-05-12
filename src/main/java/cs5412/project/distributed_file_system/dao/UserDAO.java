@@ -11,5 +11,5 @@ public interface UserDAO {
 
 	public boolean deleteUser(User user);
 
-	public boolean userLogin(String username, String hashPassword);
+	public User userLogin(String username, String hashPassword);
 }

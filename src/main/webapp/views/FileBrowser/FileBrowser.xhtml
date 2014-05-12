@@ -45,7 +45,8 @@
 					style="margin:0" />
 				<p:commandButton value="Share" icon="ui-icon-check"
 					style="margin:30" />
-				<p:commandButton value="Download" icon="ui-icon-check"
+				<p:commandButton value="Download" icon="ui-icon-check" ajax="true"
+					actionListener="#{fileBrowserBean.downloadActionListener}"
 					style="margin:30" />
 				<p:commandButton value="Delete" update="fileBrowser" ajax="true"
 					actionListener="#{fileBrowserBean.deleteActionListener}"
@@ -65,6 +66,9 @@
 					<p:ajax event="dialogReturn"
 						listener="#{fileBrowserBean.onFileNameEntered}" update="growl" />
 				</p:commandButton>
+				<p:commandButton value="Upload" icon="ui-icon-check" ajax="true"
+					actionListener="#{fileBrowserBean.uploadActionListener}"
+					style="margin:30" />
 			</f:facet>
 		</p:panel>
 
@@ -77,6 +81,7 @@
 
 		<p:growl id="growl" showDetail="true" />
 	</h:form>
+
 
 
 </h:body>

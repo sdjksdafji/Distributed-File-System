@@ -1,8 +1,13 @@
 package cs5412.project.distributed_file_system.jsfbean;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -11,7 +16,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 import org.springframework.context.annotation.Scope;
 
@@ -57,6 +64,7 @@ public class FileBrowserBean {
 		checkLoginCookie();
 		this.readInfoFromCookie();
 		System.out.println("folder fid after read cookie: " + this.folderFid);
+		System.out.println("branch fid after read cookie: " + this.branchId);
 		if (this.folderFid < 0) {
 			readBranchFileList();
 		} else {
@@ -117,14 +125,56 @@ public class FileBrowserBean {
 		String folderName = (String) event.getObject();
 		System.out.println("fid = " + folderFid);
 		System.out.println(folderName);
+		File folder = new File(folderName, true);
+		folder.setUid(userId);
+		folder.setParentDir(folderFid);
+		int newfolderfid = fileDao.createFile(folder);
+		System.out.println("new folder fid is " + newfolderfid);
+		File parent = new File();
+		parent.setFid(folderFid);
 	}
 
 	public void deleteActionListener(ActionEvent actionEvent) {
+		System.out.println("deleteActionListener");
+		if (this.selectedItem != null) {
+			System.out.println("\tselected fid=" + this.selectedItem.getFid());
+			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem
+					.getFid());
+			boolean isSuccess;
+			if (selectedItem.isDir() == true) {
+				isSuccess = this.fileDao.deleteDir(selectedItem);
+			} else {
+				isSuccess = this.fileDao.deleteFile(selectedItem);
+			}
+			System.out.println("\tdelete is " + isSuccess);
+		}
+	}
+
+	public void downloadActionListener(ActionEvent actionEvent)
+			throws IOException {
+		System.out.println("downloadActionListener");
 		if (this.selectedItem != null) {
 			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem
 					.getFid());
-			this.fileDao.deleteFile(selectedItem);
+			if (!this.selectedItem.isDir()) {
+				System.out.println("\tselected fid="
+						+ this.selectedItem.getFid());
+				ExternalContext context = FacesContext.getCurrentInstance()
+						.getExternalContext();
+				context.redirect(context.getRequestContextPath() + "/sharing/"
+						+ this.selectedItem.getFid());
+			}
 		}
+	}
+
+	public void uploadActionListener(ActionEvent actionEvent)
+			throws IOException {
+		System.out.println("uploadActionListener");
+		ExternalContext context = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		context.redirect(context.getRequestContextPath()
+				+ "/views/FileBrowser/upload.xhtml");
+
 	}
 
 	public String getViewPath() {
@@ -168,6 +218,9 @@ public class FileBrowserBean {
 		this.folderFid = this.cookieService.getFolderFid(request);
 		this.branchId = this.cookieService.getBranchFid(request);
 		this.branchName = this.cookieService.getBranchName(request);
+		if (this.folderFid == -1) {
+			this.folderFid = this.branchId;
+		}
 	}
 
 	public List<File> getFiles() {

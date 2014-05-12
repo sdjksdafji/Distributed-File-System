@@ -9,7 +9,7 @@ import cs5412.project.distributed_file_system.pojo.User;
 import cs5412.project.distributed_file_system.service.CookieService;
 import cs5412.project.distributed_file_system.service.UserAccountService;
 
-@Named
+//@Named
 public class UserAccountServiceMock implements UserAccountService {
 
 	@Inject

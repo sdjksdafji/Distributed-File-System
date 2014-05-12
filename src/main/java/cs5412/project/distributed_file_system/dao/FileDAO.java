@@ -29,4 +29,6 @@ public interface FileDAO {
 	
 	public List<File> getBranchesForUser(int uid);
 
+	public boolean deleteDir(File dir);
+
 }

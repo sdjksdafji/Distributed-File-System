@@ -93,13 +93,13 @@ public class FileJdbcDAO implements FileDAO {
 								new Object[] { new Date(), uid, type });
 			}
 			if (fidold != 0) {
-				//System.out.println("\tincrease fidold");
+				// System.out.println("\tincrease fidold");
 				this.jdbcTemplate
 						.update("update File set hiscount = hiscount + 1 where fid = ?	",
 								new Object[] { fidold });
 			}
 			if (fidnew != 0) {
-				//System.out.println("\tincrease fidnew");
+				// System.out.println("\tincrease fidnew");
 				this.jdbcTemplate
 						.update("update File set hiscount = hiscount + 1 where fid = ?	",
 								new Object[] { fidnew });
@@ -200,7 +200,7 @@ public class FileJdbcDAO implements FileDAO {
 	@Override
 	public List<File> getFileByParentDir(File parentDir) {
 		List<File> files = this.jdbcTemplate
-				.query("select fid, fname, location, directory, hash, hiscount, uid, isdir, ishidden, isPublic, isBranch from File where directory = ?",
+				.query("select fid, fname, location, directory, hash, hiscount, uid, isdir, ishidden, isPublic, isBranch from File where directory = ? AND ishidden = 0",
 						new Object[] { parentDir.getFid() }, new FileMapper());
 		return files;
 	}
@@ -286,7 +286,8 @@ public class FileJdbcDAO implements FileDAO {
 		return isSuccess;
 	}
 
-	private boolean deleteDir(File dir) {
+	@Override
+	public boolean deleteDir(File dir) {
 		if (!dir.isDir()) {
 			return false;
 		}

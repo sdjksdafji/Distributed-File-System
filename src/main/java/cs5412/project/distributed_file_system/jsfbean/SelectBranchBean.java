@@ -55,9 +55,11 @@ public class SelectBranchBean {
 				.getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) context.getRequest();
 		this.userId = this.userAccountService.getUidFromCookie(request);
+		System.out.println("userid: " + this.userId);
 	}
 
 	private void readBranchListForUser() {
+		System.out.println("userid: " + this.userId);
 		if (this.userId >= 0) {
 			this.branches = this.fileDao.getBranchesForUser(userId);
 		}

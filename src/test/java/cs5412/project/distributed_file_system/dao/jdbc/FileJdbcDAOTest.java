@@ -32,11 +32,12 @@ public class FileJdbcDAOTest {
 
 	@Test
 	public void testCreateFile() {
-		File file = new File("testfile", false);
-		file.setUid(1);
-		file.setParentDir(2);
-		file.setPublic(true);
+		File file = new File("test04private.txt", false);
+		file.setUid(2);
+		file.setParentDir(26);
+		file.setPublic(false);
 		file.setHash("hjkl");
+		file.setLocation("/user/ubuntu/test04.txt");
 		tmpfid = fileDao.createFile(file);
 		if (tmpfid <= 0) {
 			fail("create fail");
@@ -71,7 +72,7 @@ public class FileJdbcDAOTest {
 	@Test
 	public void testGetFileByParentDir() {
 		File dir = new File("testdir", true);
-		dir.setFid(1);
+		dir.setFid(26);
 		List<File> files = fileDao.getFileByParentDir(dir);
 		if (files == null || files.size() == 0) {
 			fail("update fail");
@@ -224,6 +225,18 @@ public class FileJdbcDAOTest {
 		File forkdir = fileDao.forkBrank(srcfile, "srcfolder_forked");
 		if (forkdir == null) {
 			fail("fork branch fail");
+		}
+	}
+
+	@Test
+	public void testGetBranchesForUser() {
+		List<File> ls = fileDao.getBranchesForUser(2);
+		if (ls.size() == 0) {
+			fail("getbranches fail");
+		} else {
+			for (File f : ls) {
+				System.out.println("filename: " + f.getName());
+			}
 		}
 	}
 

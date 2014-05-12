@@ -2,8 +2,12 @@ package cs5412.project.distributed_file_system.jsfbean;
 
 import java.io.InputStream;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +19,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.pojo.File;
 import cs5412.project.distributed_file_system.service.HdfsFileService;
+import cs5412.project.distributed_file_system.service.UserAccountService;
 
 @Named
 @Scope("request")
@@ -24,6 +29,7 @@ public class FileSharingBean {
 
 	private String urlFileId;
 	private File file = null;
+	private int userId;
 
 	private boolean isDownloadable;
 	private StreamedContent fileStream;
@@ -32,6 +38,8 @@ public class FileSharingBean {
 	private HdfsFileService hdfsFileServcie;
 	@Inject
 	private FileDAO fileDao;
+	@Inject
+	private UserAccountService userAccountService;
 
 	public FileSharingBean() {
 		// InputStream stream = ((ServletContext) FacesContext
@@ -47,15 +55,27 @@ public class FileSharingBean {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		checkLoginCookie();
 		System.out.println("the shared fid is " + fid);
 		this.isDownloadable = this.fileDao.isFilePublic(fid);
+		this.file = this.fileDao.getFileByFid(fid);
+		this.isDownloadable = this.isDownloadable
+				|| (this.file.getUid() == userId);
 		if (this.isDownloadable) {
-			this.file = this.fileDao.getFileByFid(fid);
 			InputStream stream = this.hdfsFileServcie.getFile(this.file
 					.getLocation());
-			fileStream = new DefaultStreamedContent(stream, "image/jpg",
-					"downloaded.txt");
+			// fileStream = new DefaultStreamedContent(stream, "image/jpg",
+			// "downloaded.txt");
+			fileStream = new DefaultStreamedContent(stream,
+					"application/octet-stream", file.getName());
 		}
+	}
+
+	private void checkLoginCookie() {
+		ExternalContext context = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) context.getRequest();
+		this.userId = this.userAccountService.getUidFromCookie(request);
 	}
 
 	public StreamedContent getFileStream() {
