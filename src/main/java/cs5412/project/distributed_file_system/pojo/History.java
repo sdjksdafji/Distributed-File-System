@@ -80,4 +80,19 @@ public class History {
 		this.oldName = oldName;
 	}
 
+	@Override
+	public String toString() {
+		return "History [hid=" + hid + ", ts=" + ts + ", uid=" + uid
+				+ ", oldFid=" + oldFid + ", newFid=" + newFid
+				+ ", operationType=" + operationType + ", oldName=" + oldName
+				+ "]";
+	}
+
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		History otherHis = (History) other;
+		return this.hid == otherHis.getHid();
+	}
+
 }
