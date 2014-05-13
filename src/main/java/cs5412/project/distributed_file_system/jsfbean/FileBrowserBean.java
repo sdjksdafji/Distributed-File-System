@@ -132,12 +132,14 @@ public class FileBrowserBean {
 		System.out.println("new folder fid is " + newfolderfid);
 		File parent = new File();
 		parent.setFid(folderFid);
+		File temp = new File();
+		temp.setFid(this.folderFid);
+		this.files = this.fileDao.getFileByParentDir(temp);
 	}
 
 	public void deleteActionListener(ActionEvent actionEvent) {
 		System.out.println("deleteActionListener");
 		if (this.selectedItem != null) {
-			System.out.println("\tselected fid=" + this.selectedItem.getFid());
 			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem
 					.getFid());
 			boolean isSuccess;
@@ -146,7 +148,9 @@ public class FileBrowserBean {
 			} else {
 				isSuccess = this.fileDao.deleteFile(selectedItem);
 			}
-			System.out.println("\tdelete is " + isSuccess);
+			File temp = new File();
+			temp.setFid(this.folderFid);
+			this.files = this.fileDao.getFileByParentDir(temp);
 		}
 	}
 

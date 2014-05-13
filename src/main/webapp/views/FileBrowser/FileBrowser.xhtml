@@ -49,7 +49,7 @@
 					actionListener="#{fileBrowserBean.downloadActionListener}"
 					style="margin:30" />
 				<p:commandButton value="Delete" update="fileBrowser" ajax="true"
-					actionListener="#{fileBrowserBean.deleteActionListener}"
+					actionListener="#{fileBrowserBean.deleteActionListener}" 
 					icon="ui-icon-check" style="margin:30">
 					<p:confirm header="Confirmation"
 						message="Are you sure to delete ? (You can revert the action later)"
@@ -64,7 +64,7 @@
 					actionListener="#{fileBrowserBean.createFolderActionListener}"
 					icon="ui-icon-check" style="margin:30">
 					<p:ajax event="dialogReturn"
-						listener="#{fileBrowserBean.onFileNameEntered}" update="growl" />
+						listener="#{fileBrowserBean.onFileNameEntered}" update="growl fileBrowser" />
 				</p:commandButton>
 				<p:commandButton value="Upload" icon="ui-icon-check" ajax="true"
 					actionListener="#{fileBrowserBean.uploadActionListener}"

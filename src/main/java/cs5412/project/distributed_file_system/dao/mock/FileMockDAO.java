@@ -106,4 +106,10 @@ public class FileMockDAO implements FileDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public boolean deleteDir(File dir) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
