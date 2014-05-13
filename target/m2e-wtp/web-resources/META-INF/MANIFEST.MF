@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Shuyi
-Build-Jdk: 1.7.0_09
+Built-By: Fan
+Build-Jdk: 1.7.0_60-ea
 Created-By: Maven Integration for Eclipse
 

@@ -46,15 +46,6 @@
 			actionListener="#{revertHistoryBean.revertActionListener}" />
 
 
-		<p:commandButton value="Delete" ajax="true"
-			actionListener="#{revertHistoryBean.revertActionListener}"
-			icon="ui-icon-check" style="margin:30">
-			<p:confirm header="Confirmation"
-				message="Are you sure to delete this branch ? (You can revert the action later)"
-				icon="ui-icon-alert" />
-		</p:commandButton>
-
-
 
 		<p:growl id="growl" showDetail="true" />
 
