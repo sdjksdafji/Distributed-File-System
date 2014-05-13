@@ -80,4 +80,12 @@ public class History {
 		this.oldName = oldName;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		History otherFile = (History) other;
+		return this.hid == otherFile.getHid();
+	}
+
 }

@@ -18,10 +18,10 @@
 			columnClasses="label, column">
 
 
-			<h:outputText value="History" />
 			<p:selectOneListbox id="historySelector"
 				value="#{revertHistoryBean.selectedHistory}" converter="history"
-				var="h" filter="true" filterMatchMode="contains" style="width:850px">
+				var="h" filter="true" filterMatchMode="contains" style="width:850px"
+				onchange="submit" immediate="true">
 				<f:selectItems value="#{revertHistoryBean.histories}" var="history"
 					itemLabel="#{history.hid}" itemValue="#{history}" />
 				<p:column>
@@ -41,11 +41,30 @@
 		</h:panelGrid>
 
 		<p:separator />
-		<f:facet name="footer">
-			<p:commandButton value="Get old file" ajax="true"
-				actionListener="#{revertHistoryBean.revertActionListener}"/>
 
-		</f:facet>
+		<p:commandButton value="Go" ajax="false"
+			actionListener="#{revertHistoryBean.revertActionListener}" />
+
+
+		<p:commandButton value="Delete" ajax="true"
+			actionListener="#{revertHistoryBean.revertActionListener}"
+			icon="ui-icon-check" style="margin:30">
+			<p:confirm header="Confirmation"
+				message="Are you sure to delete this branch ? (You can revert the action later)"
+				icon="ui-icon-alert" />
+		</p:commandButton>
+
+
+
+		<p:growl id="growl" showDetail="true" />
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+
 
 	</h:form>
 

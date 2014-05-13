@@ -61,6 +61,7 @@ public class FileSharingBean {
 		this.file = this.fileDao.getFileByFid(fid);
 		this.isDownloadable = this.isDownloadable
 				|| (this.file.getUid() == userId);
+		this.isDownloadable = this.isDownloadable && !this.file.isDir();
 		System.out.println("file uid :" + this.file.getUid());
 		System.out.println("cookie uid: " + userId);
 		if (this.isDownloadable) {

@@ -66,7 +66,7 @@ public class RevertHistoryBean {
 	}
 
 	public void revertActionListener(ActionEvent actionEvent) {
-		System.out.println("revertActionListener");
+		System.out.println("\trevertActionListener");
 		if (this.selectedHistory != null) {
 			this.selectedHistory = this.historyDao
 					.getHistoryByHid(this.selectedHistory.getHid());
