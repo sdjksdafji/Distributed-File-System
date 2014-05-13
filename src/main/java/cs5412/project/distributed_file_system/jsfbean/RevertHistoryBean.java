@@ -1,5 +1,6 @@
 package cs5412.project.distributed_file_system.jsfbean;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
@@ -15,6 +16,7 @@ import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLBeanName;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 
+import cs5412.project.distributed_file_system.dao.FileDAO;
 import cs5412.project.distributed_file_system.dao.HistoryDAO;
 import cs5412.project.distributed_file_system.pojo.History;
 import cs5412.project.distributed_file_system.service.UserAccountService;
@@ -34,6 +36,9 @@ public class RevertHistoryBean {
 	@Inject
 	HistoryDAO historyDao;
 
+	@Inject
+	FileDAO fileDao;
+
 	@URLAction
 	public void init() {
 		checkLoginCookie();
@@ -41,9 +46,15 @@ public class RevertHistoryBean {
 	}
 
 	private void readHistoryListForUser() {
+		System.out.println("readHistoryListForUser");
 		if (this.userId >= 0) {
 			this.histories = this.historyDao.getLatestNHistoryForUser(
 					this.userId, 10);
+			for (History h : histories) {
+				if (h.getOldFid() > 0) {
+					h.setOldName(fileDao.getFileByFid(h.getOldFid()).getName());
+				}
+			}
 		}
 	}
 
@@ -55,10 +66,23 @@ public class RevertHistoryBean {
 	}
 
 	public void revertActionListener(ActionEvent actionEvent) {
+		System.out.println("revertActionListener");
 		if (this.selectedHistory != null) {
 			this.selectedHistory = this.historyDao
 					.getHistoryByHid(this.selectedHistory.getHid());
-			this.historyDao.revertHistory(this.selectedHistory);
+			// this.historyDao.revertHistory(this.selectedHistory);
+			int oldfid = this.selectedHistory.getOldFid();
+			System.out.println("\tselected fid=" + oldfid);
+			if (oldfid > 0) {
+				ExternalContext context = FacesContext.getCurrentInstance()
+						.getExternalContext();
+				try {
+					context.redirect(context.getRequestContextPath()
+							+ "/sharing/" + oldfid);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

@@ -101,6 +101,7 @@ public class FileUploadBean {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("location: " + location);
 		if (location.length() > 0) {
 			File f = new File();
 			f.setHash(location);

@@ -21,7 +21,7 @@
 			<h:outputText value="History" />
 			<p:selectOneListbox id="historySelector"
 				value="#{revertHistoryBean.selectedHistory}" converter="history"
-				var="h" filter="true" filterMatchMode="contains">
+				var="h" filter="true" filterMatchMode="contains" style="width:850px">
 				<f:selectItems value="#{revertHistoryBean.histories}" var="history"
 					itemLabel="#{history.hid}" itemValue="#{history}" />
 				<p:column>
@@ -29,7 +29,11 @@
 				</p:column>
 
 				<p:column>
-					<h:outputText value="#{h.operationType} " />
+					<h:outputText value="#{h.getOT()} " />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{h.oldName} " />
 				</p:column>
 
 			</p:selectOneListbox>
@@ -37,27 +41,11 @@
 		</h:panelGrid>
 
 		<p:separator />
+		<f:facet name="footer">
+			<p:commandButton value="Get old file" ajax="true"
+				actionListener="#{revertHistoryBean.revertActionListener}"/>
 
-		<p:commandButton id="submitButton" value="Revert" ajax="true"
-			actionListener="#{revertHistoryBean.revertActionListener}">
-			<p:confirm header="Confirmation"
-				message="Are you sure to revert ? (The action is permanent and cannot be undone)"
-				icon="ui-icon-alert" />
-		</p:commandButton>
-
-
-
-
-
-
-
-		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-			<p:commandButton value="Yes" type="button"
-				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-			<p:commandButton value="No" type="button"
-				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-		</p:confirmDialog>
-
+		</f:facet>
 
 	</h:form>
 

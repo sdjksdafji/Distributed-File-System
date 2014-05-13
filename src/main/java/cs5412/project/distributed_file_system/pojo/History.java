@@ -9,6 +9,7 @@ public class History {
 	private int oldFid;
 	private int newFid;
 	private int operationType;
+	private String oldName = "";
 
 	public int getHid() {
 		return hid;
@@ -54,8 +55,29 @@ public class History {
 		return operationType;
 	}
 
+	public String getOT() {
+		if (operationType == 1) {
+			return "create";
+		}
+		if (operationType == 2) {
+			return "delete";
+		}
+		if (operationType == 3) {
+			return "update";
+		}
+		return "";
+	}
+
 	public void setOperationType(int operationType) {
 		this.operationType = operationType;
+	}
+
+	public String getOldName() {
+		return oldName;
+	}
+
+	public void setOldName(String oldName) {
+		this.oldName = oldName;
 	}
 
 }

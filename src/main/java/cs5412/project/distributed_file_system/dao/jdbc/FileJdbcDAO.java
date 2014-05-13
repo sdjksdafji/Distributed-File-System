@@ -150,7 +150,7 @@ public class FileJdbcDAO implements FileDAO {
 						ps.setInt(3, _file.getParentDir());
 					}
 					ps.setString(4, _file.getHash());
-					ps.setInt(5, _file.getReferenceCount());
+					ps.setInt(5, 0);
 					ps.setInt(6, _file.getUid());
 					ps.setBoolean(7, _file.isDir());
 					ps.setBoolean(8, false);
