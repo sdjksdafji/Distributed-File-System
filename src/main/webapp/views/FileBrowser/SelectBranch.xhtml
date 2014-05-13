@@ -37,11 +37,18 @@
 		<p:commandButton id="submitButton" value="Go" ajax="false"
 			action="#{selectBranchBean.select}" />
 
+		<p:commandButton value="Fork Branch"
+			actionListener="#{selectBranchBean.forkListener}"
+			icon="ui-icon-check" style="margin:30">
+			<p:ajax event="dialogReturn" listener="#{selectBranchBean.onForkNameEntered}"
+				update="growl branchSelector" />
+		</p:commandButton>
+
 		<p:commandButton value="Merge To" icon="ui-icon-extlink"
-			actionListener="#{selectBranchBean.merge}">
+			update="branchSelector" actionListener="#{selectBranchBean.merge}">
 			<p:ajax event="dialogReturn"
 				listener="#{selectBranchBean.onMergingDestinationChosen}"
-				update="growl" />
+				update="growl branchSelector" />
 		</p:commandButton>
 
 		<p:commandButton value="Delete" update="branchSelector" ajax="true"

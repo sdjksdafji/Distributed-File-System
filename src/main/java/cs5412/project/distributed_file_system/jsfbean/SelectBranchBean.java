@@ -87,7 +87,29 @@ public class SelectBranchBean {
 			this.selectedBranch = this.fileDao.getFileByFid(this.selectedBranch
 					.getFid());
 			this.fileDao.deleteFile(selectedBranch);
+			readBranchListForUser();
 		}
+	}
+
+	public void forkListener(ActionEvent actionEvent) {
+
+		if (this.selectedBranch != null) {
+			ExternalContext context = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			HttpServletResponse response = (HttpServletResponse) context
+					.getResponse();
+			this.cookieService.storeBranchInfo(this.selectedBranch.getFid(),
+					"Not Valid", response);
+			RequestContext.getCurrentInstance().openDialog("inputFolderName");
+		}
+	}
+
+	public void onForkNameEntered(SelectEvent event) {
+		String newBranchName = (String) event.getObject();
+		File branch = this.fileDao.forkBrank(
+				this.fileDao.getFileByFid(this.readFidOfSourceBranch()),
+				newBranchName);
+		readBranchListForUser();
 	}
 
 	public void merge() {
@@ -116,6 +138,7 @@ public class SelectBranchBean {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Branch Merging Failed", "Unknown Error occured");
 		}
+		readBranchListForUser();
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
