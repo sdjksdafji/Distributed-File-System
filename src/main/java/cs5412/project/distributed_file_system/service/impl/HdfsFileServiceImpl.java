@@ -1,4 +1,4 @@
-package cs5412.project.distributed_file_system.service.mock;
+package cs5412.project.distributed_file_system.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ import org.apache.hadoop.fs.Path;
 import cs5412.project.distributed_file_system.service.HdfsFileService;
 
 @Named
-public class HdfsFileServiceMock implements HdfsFileService {
+public class HdfsFileServiceImpl implements HdfsFileService {
 
 	private FileSystem fileSystem = null;
 	public static final String theFilename = "/user/ubuntu/test04.txt";

@@ -123,7 +123,7 @@ public class FileUploadBean {
 		if (cookieService == null) {
 			System.out.println("cookieService");
 		}
-		this.userId = 2;
+		this.userId = this.userAccountService.getUidFromCookie(request);
 		this.folderFid = this.cookieService.getFolderFid(request);
 		this.branchId = this.cookieService.getBranchFid(request);
 		if (this.folderFid == -1) {
