@@ -171,6 +171,26 @@ public class FileBrowserBean {
 		}
 	}
 
+	public void shareListener(ActionEvent actionEvent) {
+		if (this.selectedItem != null) {
+			this.selectedItem = this.fileDao.getFileByFid(this.selectedItem
+					.getFid());
+			if (this.selectedItem.isDir())
+				return;
+			this.selectedItem.setPublic(true);
+			this.fileDao.updateFile(this.selectedItem);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"You shared the file", "link is :/sharing/"
+									+ this.selectedItem.getFid()));
+		}
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Sample info message", "PrimeFaces rocks!"));
+	}
+
 	public void uploadActionListener(ActionEvent actionEvent)
 			throws IOException {
 		System.out.println("uploadActionListener");

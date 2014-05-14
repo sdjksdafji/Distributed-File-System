@@ -13,6 +13,7 @@
 <h:body>
 
 	<h:form id="form">
+	  <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		<p:panel style="width:850px">
 			<f:facet name="header">
 				<h:outputText value="Branch: #{fileBrowserBean.branchName} " />
@@ -41,7 +42,7 @@
 				<p:commandButton value="open" update="fileBrowser" ajax="true"
 					actionListener="#{fileBrowserBean.openDir}" icon="ui-icon-arrowreturnthick-1-e"
 					style="margin:0" />
-				<p:commandButton value="Share" icon="ui-icon-unlocked"
+				<p:commandButton value="Share" icon="ui-icon-unlocked" actionListener="#{fileBrowserBean.shareListener}"
 					style="margin:30" />
 				<p:commandButton value="Download" icon="ui-icon-arrowthickstop-1-s" ajax="true"
 					actionListener="#{fileBrowserBean.downloadActionListener}"
