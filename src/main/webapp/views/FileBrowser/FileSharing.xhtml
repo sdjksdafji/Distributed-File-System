@@ -45,6 +45,13 @@
 
 	</h:form>
 
+	<p:separator />
+	<p:panelGrid columns="2">
+		<f:facet name="header">Server Information (For Demo Purpose)</f:facet>
+		<h:outputLabel value="Server IP: " />
+		<h:outputLabel value="#{displayIpBean.ip}" />
+	</p:panelGrid>
+
 	<script type="text/javascript">
 		function start() {
 			PF('statusDialog').show();

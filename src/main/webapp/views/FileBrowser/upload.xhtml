@@ -16,14 +16,20 @@
 <h:body>
 	<h:form>
 
-		<p:fileUpload
-			fileUploadListener="#{fileUploadBean.handleFileUpload}"
+		<p:fileUpload fileUploadListener="#{fileUploadBean.handleFileUpload}"
 			mode="advanced" dragDropSupport="true" update="messages"
 			sizeLimit="10000000" fileLimit="10" />
 
 		<p:growl id="messages" showDetail="true" />
 
 	</h:form>
+
+	<p:separator />
+	<p:panelGrid columns="2">
+		<f:facet name="header">Server Information (For Demo Purpose)</f:facet>
+		<h:outputLabel value="Server IP: " />
+		<h:outputLabel value="#{displayIpBean.ip}" />
+	</p:panelGrid>
 
 </h:body>
 </html>

@@ -40,7 +40,8 @@
 		<p:commandButton value="Fork Branch"
 			actionListener="#{selectBranchBean.forkListener}"
 			icon="ui-icon-check" style="margin:30">
-			<p:ajax event="dialogReturn" listener="#{selectBranchBean.onForkNameEntered}"
+			<p:ajax event="dialogReturn"
+				listener="#{selectBranchBean.onForkNameEntered}"
 				update="growl branchSelector" />
 		</p:commandButton>
 
@@ -72,8 +73,14 @@
 
 
 	</h:form>
-
-
+	
+	
+	<p:separator />
+	<p:panelGrid columns="2">
+		<f:facet name="header">Server Information (For Demo Purpose)</f:facet>
+		<h:outputLabel value="Server IP: " />
+		<h:outputLabel value="#{displayIpBean.ip}" />
+	</p:panelGrid>
 
 </h:body>
 </html>
