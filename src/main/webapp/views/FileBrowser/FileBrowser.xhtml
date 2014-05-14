@@ -39,16 +39,16 @@
 			<f:facet name="footer">
 				<!-- 				<p:commandButton value="open1" update="display" oncomplete="PF('dlg').show()" /> -->
 				<p:commandButton value="open" update="fileBrowser" ajax="true"
-					actionListener="#{fileBrowserBean.openDir}" icon="ui-icon-check"
+					actionListener="#{fileBrowserBean.openDir}" icon="ui-icon-arrowreturnthick-1-e"
 					style="margin:0" />
-				<p:commandButton value="Share" icon="ui-icon-check"
+				<p:commandButton value="Share" icon="ui-icon-unlocked"
 					style="margin:30" />
-				<p:commandButton value="Download" icon="ui-icon-check" ajax="true"
+				<p:commandButton value="Download" icon="ui-icon-arrowthickstop-1-s" ajax="true"
 					actionListener="#{fileBrowserBean.downloadActionListener}"
 					style="margin:30" />
 				<p:commandButton value="Delete" update="fileBrowser" ajax="true"
 					actionListener="#{fileBrowserBean.deleteActionListener}"
-					icon="ui-icon-check" style="margin:30">
+					icon="ui-icon-trash" style="margin:30">
 					<p:confirm header="Confirmation"
 						message="Are you sure to delete ? (You can revert the action later)"
 						icon="ui-icon-alert" />
@@ -56,16 +56,16 @@
 				<p:commandButton value="Parent Folder" update="fileBrowser"
 					ajax="true"
 					actionListener="#{fileBrowserBean.parentFolderActionListener}"
-					icon="ui-icon-check" style="margin:30" />
+					icon="ui-icon-circle-arrow-n" style="margin:30" />
 				<p:commandButton value="Create Folder" update="fileBrowser"
 					ajax="true"
 					actionListener="#{fileBrowserBean.createFolderActionListener}"
-					icon="ui-icon-check" style="margin:30">
+					icon="ui-icon-folder-open" style="margin:30">
 					<p:ajax event="dialogReturn"
 						listener="#{fileBrowserBean.onFileNameEntered}"
 						update="growl fileBrowser" />
 				</p:commandButton>
-				<p:commandButton value="Upload" icon="ui-icon-check" ajax="true"
+				<p:commandButton value="Upload" icon="ui-icon-disk" ajax="true"
 					actionListener="#{fileBrowserBean.uploadActionListener}"
 					style="margin:30" />
 			</f:facet>

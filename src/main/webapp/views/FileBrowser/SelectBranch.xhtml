@@ -35,17 +35,18 @@
 		<p:separator />
 
 		<p:commandButton id="submitButton" value="Go" ajax="false"
+			icon="ui-icon-arrowreturnthick-1-e"
 			action="#{selectBranchBean.select}" />
 
 		<p:commandButton value="Fork Branch"
+			icon="ui-icon-copy" style="margin:30">
 			actionListener="#{selectBranchBean.forkListener}"
-			icon="ui-icon-check" style="margin:30">
 			<p:ajax event="dialogReturn"
 				listener="#{selectBranchBean.onForkNameEntered}"
 				update="growl branchSelector" />
 		</p:commandButton>
 
-		<p:commandButton value="Merge To" icon="ui-icon-extlink"
+		<p:commandButton value="Merge To" icon="ui-icon-shuffle"
 			update="branchSelector" actionListener="#{selectBranchBean.merge}">
 			<p:ajax event="dialogReturn"
 				listener="#{selectBranchBean.onMergingDestinationChosen}"
@@ -54,7 +55,7 @@
 
 		<p:commandButton value="Delete" update="branchSelector" ajax="true"
 			actionListener="#{selectBranchBean.deleteActionListener}"
-			icon="ui-icon-check" style="margin:30">
+			icon="ui-icon-trash" style="margin:30">
 			<p:confirm header="Confirmation"
 				message="Are you sure to delete this branch ? (You can revert the action later)"
 				icon="ui-icon-alert" />
@@ -73,8 +74,8 @@
 
 
 	</h:form>
-	
-	
+
+
 	<p:separator />
 	<p:panelGrid columns="2">
 		<f:facet name="header">Server Information (For Demo Purpose)</f:facet>

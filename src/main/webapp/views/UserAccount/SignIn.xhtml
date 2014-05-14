@@ -14,7 +14,7 @@
 
 	<h:form id="form">
 
-		<p:panel header="User Sign Up">
+		<p:panel header="Sign In">
 			<p:messages id="messages" showDetail="true" autoUpdate="true" />
 
 			<h:panelGrid columns="3" id="signUpGrid">
@@ -35,7 +35,7 @@
 			</h:panelGrid>
 
 			<h:commandButton id="login" value="Sign In"
-				action="#{loginBean.signIn}" ajax="false" />
+				action="#{loginBean.signIn}" icon="ui-icon-check" ajax="false" />
 
 
 		</p:panel>
