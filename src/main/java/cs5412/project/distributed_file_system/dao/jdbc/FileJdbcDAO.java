@@ -247,9 +247,11 @@ public class FileJdbcDAO implements FileDAO {
 		List<File> dstlist = getFileByParentDir(dstBranch);
 		HashMap<String, File> dstlisthash = new HashMap<String, File>();
 		HashMap<String, File> dstlistdir = new HashMap<String, File>();
+		HashMap<String, File> dstlistName = new HashMap<String, File>();
 		for (File dstfile : dstlist) {
 			if (!dstfile.isDir()) {
 				dstlisthash.put(dstfile.getHash(), dstfile);
+				dstlistName.put(dstfile.getName(), dstfile);
 			} else {
 				dstlistdir.put(dstfile.getName(), dstfile);
 			}
@@ -259,6 +261,10 @@ public class FileJdbcDAO implements FileDAO {
 			if (!srcfile.isDir()) {
 				if (!dstlisthash.containsKey(srcfile.getHash())) {
 					srcfile.setParentDir(dstBranch.getFid());
+					if (dstlistName.containsKey(srcfile.getName())) {
+						srcfile.setName(srcfile.getName() + "_from_"
+								+ srcBranch.getName());
+					}
 					isSuccess = updateFile(srcfile) && isSuccess;
 				} else {
 					isSuccess = deleteFile(srcfile) && isSuccess;

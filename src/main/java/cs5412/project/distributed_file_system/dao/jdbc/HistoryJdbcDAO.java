@@ -80,7 +80,7 @@ public class HistoryJdbcDAO implements HistoryDAO {
 			}
 		});
 		if (histories.size() > n) {
-			return histories.subList(0, n - 1);
+			return histories.subList(0, n);
 		} else {
 			return histories;
 		}

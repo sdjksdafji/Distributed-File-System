@@ -55,7 +55,7 @@ public class HistoryJdbcDAOTest {
 
 	@Test
 	public void testGetLatestNHistoryForUser() {
-		List<History> ls = historyDao.getLatestNHistoryForUser(1, 3);
+		List<History> ls = historyDao.getLatestNHistoryForUser(1, 11);
 		if (ls.size() == 0) {
 			fail("testGetLatestNHistoryForUser fail");
 		} else {
