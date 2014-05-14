@@ -362,4 +362,28 @@ public class FileJdbcDAO implements FileDAO {
 		return this.getFileByParentDir(root);
 	}
 
+	@Override
+	public List<File> getRemovingFile() {
+		List<File> files = this.jdbcTemplate
+				.query("select fid, fname, location, directory, hash, hiscount, uid, isdir, ishidden, isPublic, isBranch from File where hiscount = 0 AND ishidden = 1",
+						new Object[] {}, new FileMapper());
+		return files;
+	}
+
+	@Override
+	public boolean realRemoveFile(int fid) {
+		if (fid <= 0) {
+			return false;
+		}
+		try {
+			this.jdbcTemplate.update("delete from File where fid = ?",
+					new Object[] { fid });
+
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 }

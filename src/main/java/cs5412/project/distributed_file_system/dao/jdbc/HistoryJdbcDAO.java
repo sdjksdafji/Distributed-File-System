@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -62,8 +63,51 @@ public class HistoryJdbcDAO implements HistoryDAO {
 
 	@Override
 	public boolean deleteHisotry(History history) {
-		// TODO Auto-generated method stub
-		return false;
+		if (history.getHid() <= 0) {
+			return false;
+		}
+		try {
+			if (history.getOldFid() > 0) {
+				this.jdbcTemplate
+						.update("update File set hiscount = hiscount - 1 where fid = ?	",
+								new Object[] { history.getOldFid() });
+			}
+			if (history.getNewFid() > 0) {
+				this.jdbcTemplate
+						.update("update File set hiscount = hiscount - 1 where fid = ?	",
+								new Object[] { history.getNewFid() });
+			}
+			this.jdbcTemplate.update("delete from History where Hid = ?",
+					new Object[] { history.getHid() });
+
+		} catch (DataAccessException e) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean keepLatestNHistoryForUser(int uid, int n) {
+		List<History> histories = this.jdbcTemplate
+				.query("select hid, timestamp, uid, File_fid_old, File_fid_new, type from History where uid = ?",
+						new Object[] { uid }, new HistoryMapper());
+
+		Collections.sort(histories, new Comparator<History>() {
+			@Override
+			public int compare(History h1, History h2) {
+
+				return h2.getTs().compareTo(h1.getTs());
+			}
+		});
+		if (histories.size() > n) {
+			boolean isSuccess = true;
+			for (int i = n; i < histories.size(); i++) {
+				isSuccess = isSuccess && deleteHisotry(histories.get(i));
+			}
+			return isSuccess;
+		} else {
+			return true;
+		}
 	}
 
 	@Override

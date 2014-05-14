@@ -31,4 +31,8 @@ public interface FileDAO {
 
 	public boolean deleteDir(File dir);
 
+	public List<File> getRemovingFile();
+
+	public boolean realRemoveFile(int fid);
+
 }

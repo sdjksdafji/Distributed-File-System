@@ -16,4 +16,6 @@ public interface HistoryDAO {
 	public List<History> getLatestNHistoryForUser(int uid, int n);
 	
 	public boolean revertHistory(History history);
+
+	public boolean keepLatestNHistoryForUser(int uid, int n);
 }
