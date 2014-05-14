@@ -39,8 +39,8 @@
 			action="#{selectBranchBean.select}" />
 
 		<p:commandButton value="Fork Branch"
-			icon="ui-icon-copy" style="margin:30">
-			actionListener="#{selectBranchBean.forkListener}"
+			icon="ui-icon-copy" style="margin:30"
+			actionListener="#{selectBranchBean.forkListener}">
 			<p:ajax event="dialogReturn"
 				listener="#{selectBranchBean.onForkNameEntered}"
 				update="growl branchSelector" />
