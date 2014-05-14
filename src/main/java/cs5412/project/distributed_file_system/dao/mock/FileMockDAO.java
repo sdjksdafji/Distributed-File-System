@@ -112,4 +112,16 @@ public class FileMockDAO implements FileDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public List<File> getRemovingFile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean realRemoveFile(int fid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

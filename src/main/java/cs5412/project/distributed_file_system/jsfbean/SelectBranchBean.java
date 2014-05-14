@@ -75,6 +75,8 @@ public class SelectBranchBean {
 					.getResponse();
 			this.cookieService.storeBranchInfo(this.selectedBranch.getFid(),
 					this.selectedBranch.getName(), response);
+			this.cookieService.storeFolderFid(this.selectedBranch.getFid(),
+					response);
 			return "pretty:fileBrowser";
 		} else {
 			return null;

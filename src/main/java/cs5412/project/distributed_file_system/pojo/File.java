@@ -1,6 +1,8 @@
 package cs5412.project.distributed_file_system.pojo;
 
 public class File {
+	private static final String FOLDER_ICON = "https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png";
+	private static final String FILE_ICON = "https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/File-icon.png";
 	private int fid;
 	private String name;
 	private String location = "";
@@ -28,6 +30,14 @@ public class File {
 	}
 
 	public void setType() {
+
+	}
+
+	public String getIcon() {
+		return isDir ? FOLDER_ICON : FILE_ICON;
+	}
+
+	public void setIcon() {
 
 	}
 

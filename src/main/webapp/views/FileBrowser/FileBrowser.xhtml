@@ -15,7 +15,7 @@
 	<h:form id="form">
 		<p:panel style="width:850px">
 			<f:facet name="header">
-				<h:outputText value="File Browser #{fileBrowserBean.branchName} " />
+				<h:outputText value="Branch: #{fileBrowserBean.branchName} " />
 			</f:facet>
 			<p:selectOneListbox id="fileBrowser"
 				value="#{fileBrowserBean.selectedItem}" converter="file" var="f"
@@ -25,16 +25,14 @@
 					itemLabel="#{file.name}" itemValue="#{file}" />
 
 				<p:column>
-					<p:graphicImage
-						value="https://s3.amazonaws.com/edu-cornell-cs-cs5412-project/Folder-icon.png"
-						width="40" />
+					<p:graphicImage value="#{f.icon}" width="40" />
 				</p:column>
 
 				<p:column>
-					<h:outputText value="#{f.name} " />
+					<h:outputText value="#{f.name}" />
 				</p:column>
 				<p:column>
-					<h:outputText value="#{f.type} " />
+					<h:outputText value="#{f.type}" />
 				</p:column>
 			</p:selectOneListbox>
 
